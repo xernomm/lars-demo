@@ -32,27 +32,27 @@ export default function EngineeringManagement() {
     setSelectedDrawing(drawingName)
     try {
       const result = await generateContent(
-        `Analisis gambar teknik kapal "${drawingName}" dan berikan review meliputi:
-1. Kelengkapan informasi yang biasanya harus ada
-2. Potensi masalah atau kekurangan
-3. Kesesuaian dengan standar BKI
-4. Rekomendasi perbaikan
-Berikan dalam format terstruktur dan jika memungkinkan tampilkan poin-poin atau tabel ringkasan.`,
+        `Analyze the ship engineering drawing "${drawingName}" and provide a comprehensive review covering:
+1. Standard required drawing information completeness
+2. Potential engineering flaws or omissions
+3. Compliance with BKI/IACS classification rules
+4. Actionable revision recommendations
+Format with clean markdown headings and summary bullet points.`,
         'engineering-management'
       )
       setAiResult(result)
     } catch {
-      setAiResult('⚠️ Gagal menganalisis gambar. Silakan coba lagi.')
+      setAiResult('⚠️ Failed to analyze drawing. Please try again.')
     }
     setIsAnalyzing(false)
   }
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'approved': return <span className="badge badge-success"><CheckCircle size={10} className="mr-1" /> Disetujui</span>
-      case 'revision': return <span className="badge badge-warning"><Clock size={10} className="mr-1" /> Revisi</span>
-      case 'rejected': return <span className="badge badge-danger"><XCircle size={10} className="mr-1" /> Ditolak</span>
-      default: return <span className="badge badge-neutral"><Clock size={10} className="mr-1" /> Menunggu</span>
+      case 'approved': return <span className="badge badge-success"><CheckCircle size={10} className="mr-1" /> Approved</span>
+      case 'revision': return <span className="badge badge-warning"><Clock size={10} className="mr-1" /> Revision</span>
+      case 'rejected': return <span className="badge badge-danger"><XCircle size={10} className="mr-1" /> Rejected</span>
+      default: return <span className="badge badge-neutral"><Clock size={10} className="mr-1" /> Pending</span>
     }
   }
 
@@ -60,16 +60,16 @@ Berikan dalam format terstruktur dan jika memungkinkan tampilkan poin-poin atau 
     <div className="space-y-6 fade-in">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Engineering Management</h1>
-        <p className="text-sm text-slate-500 font-medium">Repositori Gambar Teknik & CAD — Barge 300 FT</p>
+        <p className="text-sm text-slate-500 font-medium">CAD Repository & Drawing Version Control — 300 FT Barge</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Total Gambar', value: '48', color: 'text-blue-600' },
-          { label: 'Disetujui', value: '32', color: 'text-emerald-600' },
-          { label: 'Revisi', value: '8', color: 'text-amber-600' },
-          { label: 'Menunggu', value: '8', color: 'text-slate-600' },
+          { label: 'Total Drawings', value: '48', color: 'text-blue-600' },
+          { label: 'Approved', value: '32', color: 'text-emerald-600' },
+          { label: 'Under Revision', value: '8', color: 'text-amber-600' },
+          { label: 'Pending Review', value: '8', color: 'text-slate-600' },
         ].map((s, i) => (
           <div key={i} className="glass-card rounded-xl p-4">
             <p className="text-xs font-semibold text-slate-500">{s.label}</p>
@@ -86,7 +86,7 @@ Berikan dalam format terstruktur dan jika memungkinkan tampilkan poin-poin atau 
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Cari gambar teknik..."
+            placeholder="Search engineering drawings..."
             className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 font-medium"
           />
         </div>
@@ -95,11 +95,11 @@ Berikan dalam format terstruktur dan jika memungkinkan tampilkan poin-poin atau 
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-colors ${
                 filter === f ? 'bg-blue-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
-              {f === 'all' ? 'Semua' : f === 'approved' ? 'Disetujui' : f === 'revision' ? 'Revisi' : f === 'pending' ? 'Menunggu' : 'Ditolak'}
+              {f === 'all' ? 'All' : f === 'approved' ? 'Approved' : f === 'revision' ? 'Revision' : f === 'pending' ? 'Pending' : 'Rejected'}
             </button>
           ))}
         </div>
@@ -110,14 +110,14 @@ Berikan dalam format terstruktur dan jika memungkinkan tampilkan poin-poin atau 
         <table className="w-full table-dark">
           <thead>
             <tr>
-              <th>Kode</th>
-              <th>Nama Gambar</th>
-              <th>Versi</th>
-              <th>Jenis</th>
+              <th>Code</th>
+              <th>Drawing Name</th>
+              <th>Version</th>
+              <th>Category</th>
               <th>Status</th>
-              <th>Penyusun</th>
-              <th>Tanggal</th>
-              <th>Aksi</th>
+              <th>Author</th>
+              <th>Date</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -134,13 +134,13 @@ Berikan dalam format terstruktur dan jika memungkinkan tampilkan poin-poin atau 
                 <td className="text-xs font-medium text-slate-500">{d.date}</td>
                 <td>
                   <div className="flex items-center gap-1">
-                    <button className="p-1.5 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-800 transition-colors" title="Lihat">
+                    <button className="p-1.5 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-800 transition-colors" title="View Drawing">
                       <Eye size={15} />
                     </button>
                     <button
                       onClick={() => handleAIScan(d.name)}
                       className="p-1.5 hover:bg-emerald-50 rounded text-emerald-600 hover:text-emerald-700 transition-colors group"
-                      title="Pindai Gambar dengan AI"
+                      title="AI Drawing Scan"
                     >
                       <Sparkles size={15} className="group-hover:scale-110 transition-transform" />
                     </button>
@@ -157,7 +157,7 @@ Berikan dalam format terstruktur dan jika memungkinkan tampilkan poin-poin atau 
         <div className="glass-card rounded-xl p-5 border border-emerald-200 bg-emerald-50/30 slide-in">
           <div className="flex items-center gap-2 mb-3">
             <Sparkles size={16} className="text-emerald-600" />
-            <h3 className="text-sm font-bold text-slate-900">Analisis AI — {selectedDrawing}</h3>
+            <h3 className="text-sm font-bold text-slate-900">AI Drawing Scan — {selectedDrawing}</h3>
             {isAnalyzing && <Loader2 size={14} className="text-emerald-600 animate-spin" />}
           </div>
           {isAnalyzing ? (
@@ -165,14 +165,14 @@ Berikan dalam format terstruktur dan jika memungkinkan tampilkan poin-poin atau 
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" />
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-              <span>Gemini AI sedang menganalisis gambar...</span>
+              <span>Gemini AI is analyzing CAD specifications...</span>
             </div>
           ) : (
             <MarkdownRenderer content={aiResult || ''} />
           )}
           {aiResult && (
             <button onClick={() => { setAiResult(null); setSelectedDrawing(null) }} className="mt-3 text-xs text-slate-500 hover:text-slate-700 transition-colors font-medium">
-              Tutup hasil analisis
+              Dismiss analysis
             </button>
           )}
         </div>

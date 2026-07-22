@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import {
   Anchor, Zap, Bell, Cpu, ChevronDown,
-  Activity, Wifi, WifiOff, ShieldCheck, UserCheck, Shield
+  Activity, Wifi, WifiOff, ShieldCheck, Shield
 } from 'lucide-react'
 import { checkApiConnection } from '../services/geminiService'
 import { User } from '../types/auth'
@@ -51,7 +51,7 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
         <div className="hidden md:flex items-center gap-2 ml-2">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
             <Activity size={12} className="text-blue-600" />
-            Proyek: Barge 300 FT #001
+            Project: 300 FT Barge #001
           </span>
         </div>
       </div>
@@ -66,10 +66,10 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
               ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
               : 'bg-red-50 text-red-800 border border-red-300'
           }`}
-          title="Klik untuk melihat / ganti lisensi"
+          title="Click to view or redeem license"
         >
           <ShieldCheck size={12} className={currentUser.licenseStatus === 'active' ? 'text-emerald-600' : 'text-red-600'} />
-          Lisensi: {currentUser.licenseType} ({currentUser.licenseStatus === 'active' ? 'Aktif' : 'Expired'})
+          License: {currentUser.licenseType} ({currentUser.licenseStatus === 'active' ? 'Active' : 'Expired'})
         </button>
 
         <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold ${
@@ -102,7 +102,7 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
           }`}
         >
           <Zap size={14} className={isSimulating ? 'animate-spin' : ''} />
-          {isSimulating ? 'Memproses...' : 'Simulasi Skenario AI'}
+          {isSimulating ? 'Processing...' : 'Simulate AI Scenario'}
         </button>
 
         {/* Notifications */}
@@ -122,11 +122,11 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
           {showNotifications && (
             <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl border border-slate-200 shadow-xl z-50 animate-slide-in-down">
               <div className="p-3 border-b border-slate-100 bg-slate-50 rounded-t-xl">
-                <h3 className="text-sm font-semibold text-slate-800">Notifikasi</h3>
+                <h3 className="text-sm font-semibold text-slate-800">Notifications</h3>
               </div>
               <div className="max-h-64 overflow-y-auto">
                 {notifications.length === 0 ? (
-                  <p className="p-4 text-xs text-slate-500 text-center">Tidak ada notifikasi</p>
+                  <p className="p-4 text-xs text-slate-500 text-center">No new notifications</p>
                 ) : (
                   notifications.slice(0, 5).map((n) => (
                     <div key={n.id} className="p-3 border-b border-slate-100 hover:bg-slate-50 transition-colors">
@@ -168,19 +168,19 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
               <div className="p-2 border-b border-slate-100 mb-1">
                 <p className="text-xs font-bold text-slate-900">{currentUser.name}</p>
                 <p className="text-[10px] text-slate-500 truncate">{currentUser.email}</p>
-                <span className="badge badge-success text-[9px] mt-1">Lisensi {currentUser.licenseType}</span>
+                <span className="badge badge-success text-[9px] mt-1">{currentUser.licenseType} License</span>
               </div>
               <button
                 onClick={() => { setShowLicenseModal(true); setShowUserDropdown(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
               >
-                <ShieldCheck size={14} className="text-emerald-600" /> Status & Expirasi Lisensi
+                <ShieldCheck size={14} className="text-emerald-600" /> License Details & Expiry
               </button>
               <button
                 onClick={() => { onOpenAdmin(); setShowUserDropdown(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
               >
-                <Shield size={14} className="text-blue-600" /> Portal Admin Expirasi (/admin)
+                <Shield size={14} className="text-blue-600" /> Admin Portal (/admin)
               </button>
             </div>
           )}

@@ -29,7 +29,7 @@ interface ModuleCategory {
 
 const categories: ModuleCategory[] = [
   {
-    name: 'Perencanaan & Rekayasa',
+    name: 'Planning & Engineering',
     icon: FolderKanban,
     items: [
       { id: 'project-management', label: 'Project Management', icon: FolderKanban },
@@ -37,7 +37,7 @@ const categories: ModuleCategory[] = [
     ],
   },
   {
-    name: 'Rantai Pasok & Material',
+    name: 'Supply Chain & Material',
     icon: Package,
     items: [
       { id: 'procurement', label: 'Procurement & MRP', icon: Package },
@@ -45,7 +45,7 @@ const categories: ModuleCategory[] = [
     ],
   },
   {
-    name: 'Produksi & Operasional',
+    name: 'Production & Operations',
     icon: Wrench,
     items: [
       { id: 'production-control', label: 'Production Control', icon: ClipboardCheck },
@@ -55,7 +55,7 @@ const categories: ModuleCategory[] = [
     ],
   },
   {
-    name: 'Kualitas & Inspeksi',
+    name: 'Quality & Inspection',
     icon: Shield,
     items: [
       { id: 'qa-qc', label: 'QA/QC Management', icon: Shield },
@@ -65,7 +65,7 @@ const categories: ModuleCategory[] = [
     ],
   },
   {
-    name: 'Penyelesaian & Eksekutif',
+    name: 'Completion & Executive',
     icon: Ship,
     items: [
       { id: 'launching', label: 'Launching Management', icon: Rocket },
@@ -78,7 +78,7 @@ const categories: ModuleCategory[] = [
 
 export default function Sidebar({ activeModule, setActiveModule, sidebarOpen, setSidebarOpen }: SidebarProps) {
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
-    new Set(['Perencanaan & Rekayasa', 'Produksi & Operasional'])
+    new Set(['Planning & Engineering', 'Production & Operations'])
   )
 
   const toggleCategory = (name: string) => {
@@ -102,8 +102,8 @@ export default function Sidebar({ activeModule, setActiveModule, sidebarOpen, se
           <div className="flex items-center gap-2 fade-in">
             <Anchor size={18} className="text-blue-600" />
             <div>
-              <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider leading-none">Navigasi Modul</h2>
-              <p className="text-[10px] text-slate-500 font-medium">16 Modul Terintegrasi</p>
+              <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider leading-none">Module Navigation</h2>
+              <p className="text-[10px] text-slate-500 font-medium">16 Integrated Modules</p>
             </div>
           </div>
         )}
@@ -205,11 +205,11 @@ export default function Sidebar({ activeModule, setActiveModule, sidebarOpen, se
         <div className="border-t border-slate-100 p-3 space-y-1 bg-slate-50/50 fade-in">
           <button className="w-full flex items-center gap-2 px-3 py-2 text-xs text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 rounded-lg transition-colors font-medium">
             <Settings size={14} className="text-slate-400" />
-            <span>Pengaturan</span>
+            <span>Settings</span>
           </button>
           <button className="w-full flex items-center gap-2 px-3 py-2 text-xs text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors font-medium">
             <LogOut size={14} className="text-red-400" />
-            <span>Keluar</span>
+            <span>Logout</span>
           </button>
         </div>
       )}

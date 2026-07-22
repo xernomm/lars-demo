@@ -1,33 +1,40 @@
 import { useState } from 'react'
-import { Camera, Loader2, Upload, Sparkles, Image } from 'lucide-react'
+import { Camera, Sparkles, AlertTriangle, ShieldCheck, FileCheck, CheckCircle, Loader2 } from 'lucide-react'
 import { analyzeInspection } from '../../services/geminiService'
 import MarkdownRenderer from '../MarkdownRenderer'
 
-const presetDefects = [
-  { id: 1, label: 'Korosi permukaan pada pelat lambung bawah air', description: 'Ditemukan korosi general pada pelat lambung di area waterline, kedalaman korosi sekitar 1.5mm pada pelat dengan tebal original 12mm. Area terdampak sekitar 2m x 1.5m. Terlihat juga pitting corrosion pada beberapa titik.' },
-  { id: 2, label: 'Retak pada sambungan las blok A3', description: 'Terdeteksi retak transversal pada sambungan las butt joint antara blok A3 dan A4. Panjang retak sekitar 150mm. Retak terlihat dari permukaan dan kemungkinan menembus ke root. Lokasi pada frame 45 portside.' },
-  { id: 3, label: 'Deformasi pelat deck area cargo hold', description: 'Ditemukan deformasi (buckling) pada pelat deck di area cargo hold no.2. Deformasi berbentuk panel buckle dengan depth sekitar 25mm pada panel 2m x 3m. Tebal pelat 10mm.' },
-  { id: 4, label: 'Kerusakan cat pada ballast tank no.3', description: 'Coating breakdown pada ballast tank no.3 starboard. Area terdampak sekitar 40% dari total luasan. Terlihat rust staining, blistering, dan peeling. Coating system original adalah epoxy tar 2 coat.' },
-  { id: 5, label: 'Cacat pengelasan — porositas pada fillet weld', description: 'Ditemukan porositas cluster pada fillet weld bracket frame 52 starboard. Ukuran pore terbesar sekitar 3mm diameter. Cluster sepanjang 80mm. Proses las FCAW, material AH36.' },
+const presets = [
+  {
+    title: 'Porosity & Lack of Fusion on Hull Butt Joint',
+    desc: 'Visual inspection of Transverse Bulkhead B3 weld joint reveals clustered surface porosity and incomplete penetration along a 45mm weld length.',
+    category: 'Welding Defect',
+  },
+  {
+    title: 'Coating Blistering & Under-thickness on Side Shell',
+    desc: 'Paint inspection on Starboard Side Shell Block B2 shows localized osmotic blistering and Dry Film Thickness (DFT) reading of 160 µm against 220 µm spec.',
+    category: 'Coating Failure',
+  },
+  {
+    title: 'Excessive Plate Distortion on Foredeck Structure',
+    desc: 'Post-welding dimensional inspection on Foredeck Plate B1-04 exhibits 14mm heat-induced angular distortion exceeding BKI structural tolerances (max 8mm).',
+    category: 'Structural Distortion',
+  },
 ]
 
 export default function SurveyorAIEngine() {
-  const [selectedDefect, setSelectedDefect] = useState<typeof presetDefects[0] | null>(null)
+  const [inputDesc, setInputDesc] = useState(presets[0].desc)
   const [analysisResult, setAnalysisResult] = useState<string | null>(null)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
-  const [customDesc, setCustomDesc] = useState('')
 
-  const handleAnalyze = async () => {
-    const description = selectedDefect?.description || customDesc
-    if (!description.trim()) return
-
+  const handleAnalyze = async (descToUse?: string) => {
+    const text = descToUse || inputDesc
+    if (!text.trim() || isAnalyzing) return
     setIsAnalyzing(true)
-    setAnalysisResult(null)
     try {
-      const result = await analyzeInspection(description)
+      const result = await analyzeInspection(text)
       setAnalysisResult(result)
     } catch {
-      setAnalysisResult('⚠️ Gagal menganalisis. Silakan coba lagi.')
+      setAnalysisResult('⚠️ Failed to run AI Surveyor analysis. Please check your internet connection or API settings.')
     }
     setIsAnalyzing(false)
   }
@@ -35,107 +42,70 @@ export default function SurveyorAIEngine() {
   return (
     <div className="space-y-6 fade-in">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-          <Camera size={28} className="text-emerald-600" />
-          Surveyor AI Engine
+        <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <Camera className="text-emerald-600" /> Surveyor AI Engine
         </h1>
-        <p className="text-sm text-slate-500 font-medium">Analisis Inspeksi Visual dengan Gemini AI</p>
+        <p className="text-sm text-slate-500 font-medium">Automated BKI & IACS Visual Inspection Assessment & Repair Recommendations</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left — Upload / Select */}
-        <div className="space-y-4">
-          {/* Preset Defects */}
-          <div className="glass-card rounded-xl p-5">
-            <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-              <Image size={16} className="text-emerald-600" />
-              Pilih Skenario Inspeksi
-            </h3>
-            <div className="space-y-2">
-              {presetDefects.map((defect) => (
-                <button
-                  key={defect.id}
-                  onClick={() => { setSelectedDefect(defect); setCustomDesc('') }}
-                  className={`w-full text-left p-3 rounded-lg border transition-all ${
-                    selectedDefect?.id === defect.id
-                      ? 'bg-emerald-50 border-emerald-300 ring-1 ring-emerald-400'
-                      : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
-                  }`}
-                >
-                  <span className="text-xs font-semibold text-slate-900">{defect.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+      {/* Preset Scenarios */}
+      <div className="glass-card rounded-xl p-5 space-y-3">
+        <h2 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+          <Sparkles size={14} className="text-emerald-600" /> Select Preset Inspection Defect Scenario:
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {presets.map((p, idx) => (
+            <button
+              key={idx}
+              onClick={() => { setInputDesc(p.desc); handleAnalyze(p.desc); }}
+              className="p-3.5 rounded-xl border border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50/50 text-left transition-all group shadow-xs"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200 mb-1.5 inline-block">
+                {p.category}
+              </span>
+              <h3 className="text-xs font-bold text-slate-900 group-hover:text-emerald-800">{p.title}</h3>
+              <p className="text-[11px] text-slate-500 line-clamp-2 mt-1 font-medium">{p.desc}</p>
+            </button>
+          ))}
+        </div>
+      </div>
 
-          {/* Custom Description */}
-          <div className="glass-card rounded-xl p-5">
-            <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-              <Upload size={16} className="text-blue-600" />
-              Atau Deskripsikan Temuan Manual
-            </h3>
-            <textarea
-              value={customDesc}
-              onChange={(e) => { setCustomDesc(e.target.value); setSelectedDefect(null) }}
-              placeholder="Deskripsikan temuan inspeksi visual secara detail (lokasi, jenis defect, ukuran, kondisi)..."
-              className="w-full h-24 bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm text-slate-800 placeholder-slate-400 resize-none focus:outline-none focus:border-blue-500 font-medium"
-            />
-          </div>
-
-          {/* Analyze Button */}
+      {/* Manual Input Form */}
+      <div className="glass-card rounded-xl p-5 space-y-3">
+        <h2 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Custom Inspection Defect Description:</h2>
+        <textarea
+          value={inputDesc}
+          onChange={(e) => setInputDesc(e.target.value)}
+          rows={3}
+          placeholder="Enter detailed description of inspection findings, weld defects, corrosion, or dimensional variances..."
+          className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20"
+        />
+        <div className="flex justify-end">
           <button
-            onClick={handleAnalyze}
-            disabled={isAnalyzing || (!selectedDefect && !customDesc.trim())}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-500 text-white rounded-xl text-sm font-bold hover:from-emerald-500 hover:to-teal-400 transition-all shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
+            onClick={() => handleAnalyze()}
+            disabled={isAnalyzing || !inputDesc.trim()}
+            className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-emerald-600/20 disabled:opacity-50"
           >
-            {isAnalyzing ? (
-              <><Loader2 size={16} className="animate-spin" /> Gemini AI Menganalisis...</>
-            ) : (
-              <><Sparkles size={16} /> Analisa dengan Gemini AI</>
-            )}
+            {isAnalyzing ? <Loader2 size={15} className="animate-spin" /> : <Sparkles size={15} />}
+            {isAnalyzing ? 'Running AI Surveyor Assessment...' : 'Run AI Surveyor Inspection Analysis'}
           </button>
         </div>
-
-        {/* Right — Results */}
-        <div className="space-y-4">
-          {(selectedDefect || customDesc) && (
-            <div className="glass-card rounded-xl p-5 border border-blue-200 bg-blue-50/20">
-              <h3 className="text-sm font-bold text-slate-900 mb-2">Deskripsi Temuan</h3>
-              <p className="text-xs font-medium text-slate-700 leading-relaxed">{selectedDefect?.description || customDesc}</p>
-            </div>
-          )}
-
-          {isAnalyzing && (
-            <div className="glass-card rounded-xl p-8 text-center border border-emerald-200">
-              <Sparkles size={36} className="text-emerald-600 mx-auto mb-3 animate-pulse" />
-              <p className="text-sm text-slate-900 font-bold">Gemini AI sedang menganalisis...</p>
-              <p className="text-xs text-slate-500 font-medium mt-1">Menggunakan model gemini-3.5-flash</p>
-              <div className="flex items-center justify-center gap-1.5 mt-3">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" />
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }} />
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
-              </div>
-            </div>
-          )}
-
-          {analysisResult && !isAnalyzing && (
-            <div className="glass-card rounded-xl p-5 border border-emerald-300 bg-emerald-50/20 slide-in">
-              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-emerald-100">
-                <Sparkles size={16} className="text-emerald-600" />
-                <h3 className="text-sm font-bold text-slate-900">Hasil Analisis Gemini AI</h3>
-              </div>
-              <MarkdownRenderer content={analysisResult} />
-            </div>
-          )}
-
-          {!selectedDefect && !customDesc && !analysisResult && (
-            <div className="glass-card rounded-xl p-12 text-center border border-dashed border-slate-200">
-              <Camera size={48} className="text-slate-300 mx-auto mb-3" />
-              <p className="text-sm font-medium text-slate-500">Pilih skenario inspeksi atau deskripsikan temuan untuk memulai analisis AI</p>
-            </div>
-          )}
-        </div>
       </div>
+
+      {/* Analysis Output */}
+      {analysisResult && (
+        <div className="glass-card rounded-xl p-6 border-2 border-emerald-200 bg-emerald-50/20 slide-in">
+          <div className="flex items-center justify-between pb-3 mb-4 border-b border-emerald-200/60">
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={20} className="text-emerald-600" />
+              <h2 className="text-base font-bold text-slate-900">BKI & IACS Classification Assessment Report</h2>
+            </div>
+            <span className="badge badge-success text-xs font-bold">AI Survey Complete</span>
+          </div>
+
+          <MarkdownRenderer content={analysisResult} />
+        </div>
+      )}
     </div>
   )
 }

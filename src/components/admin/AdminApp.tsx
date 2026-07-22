@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Key, Shield, Calendar, Search, Plus, CheckCircle, AlertTriangle, LogOut, ArrowLeft, RefreshCw } from 'lucide-react'
+import { Key, Shield, Search, Plus, LogOut, ArrowLeft } from 'lucide-react'
 import { License } from '../../types/auth'
 import { getLicenses, updateLicenseExpiry, toggleLicenseStatus, generateNewLicense, isAdminLoggedIn, setAdminLoggedIn } from '../../services/authService'
 
@@ -28,7 +28,7 @@ export default function AdminApp() {
       setIsAdmin(true)
       setAdminError('')
     } else {
-      setAdminError('Email atau Password Admin salah!')
+      setAdminError('Invalid Admin Email or Password!')
     }
   }
 
@@ -89,7 +89,7 @@ export default function AdminApp() {
               <Shield size={24} />
             </div>
             <h1 className="text-xl font-bold text-slate-900">ShipyardOS Admin Portal</h1>
-            <p className="text-xs font-medium text-slate-500 mt-1">Kelola Lisensi & Masa Berlaku User</p>
+            <p className="text-xs font-medium text-slate-500 mt-1">Manage Users & License Expiration Dates</p>
           </div>
 
           <form onSubmit={handleAdminLogin} className="space-y-4">
@@ -119,7 +119,7 @@ export default function AdminApp() {
               type="submit"
               className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-bold transition-colors shadow-xs"
             >
-              Masuk Admin Portal
+              Sign In to Admin Portal
             </button>
           </form>
 
@@ -129,12 +129,12 @@ export default function AdminApp() {
               onClick={() => { setAdminEmail('admin@shipyardos.ai'); setAdminPassword('admin123'); handleAdminLogin(); }}
               className="text-xs font-bold text-blue-600 hover:underline"
             >
-              🚀 Quick Demo Login Admin
+              🚀 Quick Demo Admin Sign In
             </button>
           </div>
           <div className="mt-4 text-center">
             <a href="/" className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-800 font-medium">
-              <ArrowLeft size={12} /> Kembali ke Aplikasi User
+              <ArrowLeft size={12} /> Return to User Dashboard
             </a>
           </div>
         </div>
@@ -152,7 +152,7 @@ export default function AdminApp() {
           </div>
           <div>
             <h1 className="text-base font-bold text-slate-900 leading-none">ShipyardOS — Admin License Portal</h1>
-            <p className="text-xs text-slate-500 font-medium mt-0.5">Manajemen Pengguna & Tanggal Expirasi Lisensi</p>
+            <p className="text-xs text-slate-500 font-medium mt-0.5">User Expiration & License Key Manager</p>
           </div>
         </div>
 
@@ -161,13 +161,13 @@ export default function AdminApp() {
             href="/"
             className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition-colors"
           >
-            <ArrowLeft size={14} /> Ke User Dashboard
+            <ArrowLeft size={14} /> To User Dashboard
           </a>
           <button
             onClick={handleAdminLogout}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-semibold transition-colors"
           >
-            <LogOut size={14} /> Keluar Admin
+            <LogOut size={14} /> Admin Sign Out
           </button>
         </div>
       </header>
@@ -177,10 +177,10 @@ export default function AdminApp() {
         {/* KPI Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {[
-            { label: 'Total Lisensi Registered', value: licenses.length, color: 'text-blue-600' },
-            { label: 'Lisensi Aktif', value: licenses.filter(l => l.status === 'active').length, color: 'text-emerald-600' },
-            { label: 'Lisensi Expired', value: licenses.filter(l => l.status === 'expired').length, color: 'text-red-600' },
-            { label: 'Lisensi Suspended', value: licenses.filter(l => l.status === 'suspended').length, color: 'text-amber-600' },
+            { label: 'Total Registered Licenses', value: licenses.length, color: 'text-blue-600' },
+            { label: 'Active Licenses', value: licenses.filter(l => l.status === 'active').length, color: 'text-emerald-600' },
+            { label: 'Expired Licenses', value: licenses.filter(l => l.status === 'expired').length, color: 'text-red-600' },
+            { label: 'Suspended Licenses', value: licenses.filter(l => l.status === 'suspended').length, color: 'text-amber-600' },
           ].map((stat, idx) => (
             <div key={idx} className="bg-white rounded-xl p-4 border border-slate-200 shadow-xs">
               <p className="text-xs font-semibold text-slate-500">{stat.label}</p>
@@ -198,7 +198,7 @@ export default function AdminApp() {
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Cari email, nama, perusahaan, atau key..."
+                placeholder="Search email, name, company, or license key..."
                 className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500"
               />
             </div>
@@ -221,7 +221,7 @@ export default function AdminApp() {
             onClick={() => setShowCreateModal(true)}
             className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-colors shadow-xs"
           >
-            <Plus size={15} /> Buat Lisensi Baru
+            <Plus size={15} /> Create New License
           </button>
         </div>
 
@@ -231,11 +231,11 @@ export default function AdminApp() {
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-600 uppercase">
                 <th className="p-3.5">License Key</th>
-                <th className="p-3.5">Pengguna / Perusahaan</th>
-                <th className="p-3.5">Paket</th>
-                <th className="p-3.5">Tanggal Expirasi</th>
+                <th className="p-3.5">User / Company</th>
+                <th className="p-3.5">Plan</th>
+                <th className="p-3.5">Expiration Date</th>
                 <th className="p-3.5">Status</th>
-                <th className="p-3.5 text-right">Aksi Kelola Expirasi</th>
+                <th className="p-3.5 text-right">Expiration Management</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-xs font-medium text-slate-700">
@@ -266,16 +266,16 @@ export default function AdminApp() {
                     <button
                       onClick={() => handleExtendDays(lic.key, 30)}
                       className="px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded font-bold hover:bg-blue-100 transition-colors text-[11px]"
-                      title="Tambah 30 Hari Expirasi"
+                      title="Extend 30 Days"
                     >
-                      +30 Hari
+                      +30 Days
                     </button>
                     <button
                       onClick={() => handleExtendDays(lic.key, 365)}
                       className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded font-bold hover:bg-emerald-100 transition-colors text-[11px]"
-                      title="Tambah 1 Tahun Expirasi"
+                      title="Extend 1 Year"
                     >
-                      +1 Tahun
+                      +1 Year
                     </button>
                     {lic.status === 'active' ? (
                       <button
@@ -289,7 +289,7 @@ export default function AdminApp() {
                         onClick={() => handleStatusToggle(lic.key, 'active')}
                         className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded font-bold hover:bg-emerald-100 transition-colors text-[11px]"
                       >
-                        Aktifkan
+                        Activate
                       </button>
                     )}
                   </td>
@@ -305,11 +305,11 @@ export default function AdminApp() {
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl p-6 w-full max-w-md border border-slate-200 shadow-2xl">
             <h3 className="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-              <Key size={18} className="text-emerald-600" /> Buat Lisensi Pengguna Baru
+              <Key size={18} className="text-emerald-600" /> Create New User License
             </h3>
             <form onSubmit={handleCreateLicense} className="space-y-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Nama Pengguna</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">User Name</label>
                 <input
                   type="text"
                   required
@@ -320,7 +320,7 @@ export default function AdminApp() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Email Pengguna</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">User Email</label>
                 <input
                   type="email"
                   required
@@ -331,7 +331,7 @@ export default function AdminApp() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Nama Perusahaan / Galangan</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Company / Shipyard</label>
                 <input
                   type="text"
                   required
@@ -343,7 +343,7 @@ export default function AdminApp() {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Paket Lisensi</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">License Plan</label>
                   <select
                     value={newPlan}
                     onChange={(e: any) => setNewPlan(e.target.value)}
@@ -355,16 +355,16 @@ export default function AdminApp() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Masa Berlaku (Hari)</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Validity (Days)</label>
                   <select
                     value={newValidDays}
                     onChange={(e) => setNewValidDays(Number(e.target.value))}
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800"
                   >
-                    <option value={30}>30 Hari (1 Bulan)</option>
-                    <option value={90}>90 Hari (3 Bulan)</option>
-                    <option value={365}>365 Hari (1 Tahun)</option>
-                    <option value={730}>730 Hari (2 Tahun)</option>
+                    <option value={30}>30 Days (1 Month)</option>
+                    <option value={90}>90 Days (3 Months)</option>
+                    <option value={365}>365 Days (1 Year)</option>
+                    <option value={730}>730 Days (2 Years)</option>
                   </select>
                 </div>
               </div>
@@ -375,13 +375,13 @@ export default function AdminApp() {
                   onClick={() => setShowCreateModal(false)}
                   className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition-colors"
                 >
-                  Batal
+                  Cancel
                 </button>
                 <button
                   type="submit"
                   className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-colors shadow-xs"
                 >
-                  Generate Lisensi
+                  Generate License
                 </button>
               </div>
             </form>

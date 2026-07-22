@@ -19,12 +19,12 @@ export default function LicenseModal({ user, onClose, onUserUpdated }: LicenseMo
     const targetLic = licenses.find(l => l.key.trim().toUpperCase() === inputKey.trim().toUpperCase())
 
     if (!targetLic) {
-      setMessage({ type: 'error', text: 'Lisensi Key tidak ditemukan atau tidak valid.' })
+      setMessage({ type: 'error', text: 'License Key not found or invalid.' })
       return
     }
 
     if (targetLic.status !== 'active') {
-      setMessage({ type: 'error', text: `Lisensi Key ini dalam status ${targetLic.status.toUpperCase()}.` })
+      setMessage({ type: 'error', text: `This License Key is currently ${targetLic.status.toUpperCase()}.` })
       return
     }
 
@@ -38,7 +38,7 @@ export default function LicenseModal({ user, onClose, onUserUpdated }: LicenseMo
 
     setCurrentUser(updatedUser)
     onUserUpdated(updatedUser)
-    setMessage({ type: 'success', text: 'Lisensi Key berhasil diperbarui!' })
+    setMessage({ type: 'success', text: 'License Key successfully updated and activated!' })
     setInputKey('')
   }
 
@@ -51,8 +51,8 @@ export default function LicenseModal({ user, onClose, onUserUpdated }: LicenseMo
               <ShieldCheck size={20} />
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900">Informasi Pengguna & Lisensi</h3>
-              <p className="text-xs font-medium text-slate-500">Detail Lisensi Enterprise ShipyardOS</p>
+              <h3 className="text-base font-bold text-slate-900">User Profile & License Details</h3>
+              <p className="text-xs font-medium text-slate-500 font-medium">ShipyardOS Enterprise License Information</p>
             </div>
           </div>
           <button onClick={onClose} className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600 transition-colors">
@@ -74,12 +74,12 @@ export default function LicenseModal({ user, onClose, onUserUpdated }: LicenseMo
                 <AlertTriangle size={20} className="text-red-600" />
               )}
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider">Status Lisensi: {user.licenseStatus}</p>
-                <p className="text-xs font-medium mt-0.5 opacity-90">Paket: {user.licenseType}</p>
+                <p className="text-xs font-bold uppercase tracking-wider">License Status: {user.licenseStatus}</p>
+                <p className="text-xs font-medium mt-0.5 opacity-90">Plan: {user.licenseType}</p>
               </div>
             </div>
             <span className={`badge ${user.licenseStatus === 'active' ? 'badge-success' : 'badge-danger'} text-xs font-bold`}>
-              {user.licenseStatus === 'active' ? 'AKTIF' : 'EXPIRED'}
+              {user.licenseStatus === 'active' ? 'ACTIVE' : 'EXPIRED'}
             </span>
           </div>
         </div>
@@ -88,42 +88,42 @@ export default function LicenseModal({ user, onClose, onUserUpdated }: LicenseMo
         <div className="space-y-3 bg-slate-50 border border-slate-200 rounded-xl p-4 mb-4">
           <div className="flex items-center gap-3 text-xs">
             <UserIcon size={15} className="text-slate-400" />
-            <span className="text-slate-500 font-medium w-24">Pengguna:</span>
+            <span className="text-slate-500 font-medium w-28">User Name:</span>
             <span className="text-slate-900 font-bold">{user.name} ({user.role})</span>
           </div>
           <div className="flex items-center gap-3 text-xs">
             <Building size={15} className="text-slate-400" />
-            <span className="text-slate-500 font-medium w-24">Perusahaan:</span>
+            <span className="text-slate-500 font-medium w-28">Company:</span>
             <span className="text-slate-900 font-bold">{user.company}</span>
           </div>
           <div className="flex items-center gap-3 text-xs">
             <Key size={15} className="text-slate-400" />
-            <span className="text-slate-500 font-medium w-24">License Key:</span>
+            <span className="text-slate-500 font-medium w-28">License Key:</span>
             <span className="font-mono text-blue-700 font-bold">{user.licenseKey}</span>
           </div>
           <div className="flex items-center gap-3 text-xs">
             <Calendar size={15} className="text-slate-400" />
-            <span className="text-slate-500 font-medium w-24">Masa Berlaku:</span>
+            <span className="text-slate-500 font-medium w-28">Expiration Date:</span>
             <span className="text-slate-900 font-bold">{user.licenseExpiry}</span>
           </div>
         </div>
 
         {/* Key Activation Form */}
         <div className="pt-2 border-t border-slate-100">
-          <h4 className="text-xs font-bold text-slate-800 mb-2">Aktivasi / Ganti License Key</h4>
+          <h4 className="text-xs font-bold text-slate-800 mb-2">Activate / Swap License Key</h4>
           <div className="flex gap-2">
             <input
               type="text"
               value={inputKey}
               onChange={(e) => setInputKey(e.target.value)}
-              placeholder="Masukkan License Key (cth: SHIPOS-ENT-2026-X9872)"
+              placeholder="Enter License Key (e.g. SHIPOS-ENT-2026-X9872)"
               className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-mono text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 uppercase font-semibold"
             />
             <button
               onClick={handleActivateKey}
               className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-colors shadow-xs"
             >
-              Aktivasi
+              Activate
             </button>
           </div>
           {message && (

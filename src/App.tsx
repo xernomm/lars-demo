@@ -12,33 +12,33 @@ import './styles/index.css'
 
 // Initial 27 production steps
 const initialSteps: ProductionStep[] = [
-  { id: 1, name: 'Project Planning', nameId: 'Perencanaan Proyek', status: 'done', progress: 100, workers: ['Ir. Budi S.', 'Ir. Andi R.', 'PM Team'], inspectionLogs: [{ date: '2026-01-10', inspector: 'Ir. Hadi', result: 'pass', notes: 'Dokumen perencanaan lengkap' }] },
-  { id: 2, name: 'Design & Engineering', nameId: 'Desain & Rekayasa', status: 'done', progress: 100, workers: ['Ir. Budi S.', 'CAD Team'], inspectionLogs: [{ date: '2026-02-15', inspector: 'Ir. Hadi', result: 'pass', notes: 'Gambar disetujui BKI' }] },
-  { id: 3, name: 'Material Procurement', nameId: 'Pengadaan Material', status: 'done', progress: 100, workers: ['Tim Procurement', 'Ir. Dewi K.'], inspectionLogs: [{ date: '2026-03-01', inspector: 'QC Team', result: 'pass', notes: 'Material sesuai spesifikasi' }] },
-  { id: 4, name: 'Material Inspection', nameId: 'Inspeksi Material', status: 'done', progress: 100, workers: ['QC Inspector', 'Ir. Sari'], inspectionLogs: [{ date: '2026-03-10', inspector: 'Ir. Sari', result: 'pass', notes: 'Sertifikat material valid' }] },
-  { id: 5, name: 'Steel Cutting', nameId: 'Pemotongan Baja', status: 'done', progress: 100, workers: ['Tim Cutting', 'Operator CNC'], inspectionLogs: [{ date: '2026-03-20', inspector: 'QC Team', result: 'pass', notes: 'Dimensi sesuai gambar' }] },
-  { id: 6, name: 'Plate Preparation', nameId: 'Persiapan Pelat', status: 'in-progress', progress: 75, workers: ['Tim Fabrikasi A', 'Welder Senior'], inspectionLogs: [{ date: '2026-04-15', inspector: 'Ir. Hadi', result: 'pass', notes: 'Bending sesuai mal' }] },
-  { id: 7, name: 'Sub-Assembly', nameId: 'Sub-Assembly', status: 'in-progress', progress: 60, workers: ['Tim Assembly B', 'Fitter Team'], inspectionLogs: [] },
-  { id: 8, name: 'Welding - Hull', nameId: 'Pengelasan Hull', status: 'in-progress', progress: 45, workers: ['Ahmad S. (WS-001)', 'Budi S. (WS-002)', 'Tim Welding'], inspectionLogs: [{ date: '2026-05-10', inspector: 'Ir. Sari', result: 'conditional', notes: 'Minor porosity ditemukan pada joint B3-07' }] },
-  { id: 9, name: 'Block Assembly', nameId: 'Perakitan Blok', status: 'pending', progress: 0, workers: ['Tim Erection'], inspectionLogs: [] },
-  { id: 10, name: 'Block Erection', nameId: 'Ereksi Blok', status: 'pending', progress: 0, workers: ['Crane Team', 'Tim Erection'], inspectionLogs: [] },
-  { id: 11, name: 'Hull Erection', nameId: 'Ereksi Hull', status: 'pending', progress: 0, workers: ['Tim Erection Senior'], inspectionLogs: [] },
-  { id: 12, name: 'Structural Inspection', nameId: 'Inspeksi Struktural', status: 'pending', progress: 0, workers: ['BKI Surveyor', 'QC Team'], inspectionLogs: [] },
-  { id: 13, name: 'Blasting & Cleaning', nameId: 'Blasting & Pembersihan', status: 'pending', progress: 0, workers: ['Tim Blasting'], inspectionLogs: [] },
-  { id: 14, name: 'Prime Painting', nameId: 'Pengecatan Primer', status: 'pending', progress: 0, workers: ['Tim Painting A'], inspectionLogs: [] },
-  { id: 15, name: 'Final Painting', nameId: 'Pengecatan Akhir', status: 'pending', progress: 0, workers: ['Tim Painting B'], inspectionLogs: [] },
-  { id: 16, name: 'Outfitting - Mechanical', nameId: 'Outfitting Mekanik', status: 'pending', progress: 0, workers: ['Tim Mekanik'], inspectionLogs: [] },
-  { id: 17, name: 'Outfitting - Electrical', nameId: 'Outfitting Elektrikal', status: 'pending', progress: 0, workers: ['Tim Elektrikal'], inspectionLogs: [] },
-  { id: 18, name: 'Outfitting - Piping', nameId: 'Outfitting Pipa', status: 'pending', progress: 0, workers: ['Tim Piping'], inspectionLogs: [] },
-  { id: 19, name: 'HVAC Installation', nameId: 'Instalasi HVAC', status: 'pending', progress: 0, workers: ['Tim HVAC'], inspectionLogs: [] },
-  { id: 20, name: 'System Testing', nameId: 'Pengujian Sistem', status: 'pending', progress: 0, workers: ['Tim Commissioning'], inspectionLogs: [] },
-  { id: 21, name: 'Final Inspection', nameId: 'Inspeksi Akhir', status: 'qa-hold', progress: 30, workers: ['BKI Surveyor', 'Owner Surveyor', 'QC Team'], inspectionLogs: [{ date: '2026-05-20', inspector: 'BKI Surveyor', result: 'fail', notes: 'Menunggu hasil NDT tambahan pada joint kritis' }] },
-  { id: 22, name: 'Quality Assurance', nameId: 'Penjaminan Mutu', status: 'pending', progress: 0, workers: ['QA Manager'], inspectionLogs: [] },
-  { id: 23, name: 'Tank Testing', nameId: 'Uji Tangki', status: 'pending', progress: 0, workers: ['Tim Testing', 'BKI Surveyor'], inspectionLogs: [] },
-  { id: 24, name: 'Documentation Review', nameId: 'Review Dokumentasi', status: 'pending', progress: 0, workers: ['Document Control'], inspectionLogs: [] },
-  { id: 25, name: 'Sea Trial Prep', nameId: 'Persiapan Sea Trial', status: 'pending', progress: 0, workers: ['Tim Sea Trial'], inspectionLogs: [] },
-  { id: 26, name: 'Sea Trial Execution', nameId: 'Pelaksanaan Sea Trial', status: 'pending', progress: 0, workers: ['Kapten Uji', 'BKI Surveyor', 'Crew'], inspectionLogs: [] },
-  { id: 27, name: 'Delivery & Handover', nameId: 'Serah Terima', status: 'pending', progress: 0, workers: ['PM Team', 'Owner Team'], inspectionLogs: [] },
+  { id: 1, name: 'Project Planning', nameId: 'Project Planning', status: 'done', progress: 100, workers: ['Ir. Budi S.', 'Ir. Andi R.', 'PM Team'], inspectionLogs: [{ date: '2026-01-10', inspector: 'Ir. Hadi', result: 'pass', notes: 'Planning documentation completed' }] },
+  { id: 2, name: 'Design & Engineering', nameId: 'Design & Engineering', status: 'done', progress: 100, workers: ['Ir. Budi S.', 'CAD Team'], inspectionLogs: [{ date: '2026-02-15', inspector: 'Ir. Hadi', result: 'pass', notes: 'Drawings approved by BKI' }] },
+  { id: 3, name: 'Material Procurement', nameId: 'Material Procurement', status: 'done', progress: 100, workers: ['Procurement Team', 'Ir. Dewi K.'], inspectionLogs: [{ date: '2026-03-01', inspector: 'QC Team', result: 'pass', notes: 'Material meets specs' }] },
+  { id: 4, name: 'Material Inspection', nameId: 'Material Inspection', status: 'done', progress: 100, workers: ['QC Inspector', 'Ir. Sari'], inspectionLogs: [{ date: '2026-03-10', inspector: 'Ir. Sari', result: 'pass', notes: 'Material certificates valid' }] },
+  { id: 5, name: 'Steel Cutting', nameId: 'Steel Cutting', status: 'done', progress: 100, workers: ['Cutting Team', 'CNC Operator'], inspectionLogs: [{ date: '2026-03-20', inspector: 'QC Team', result: 'pass', notes: 'Dimensions match drawing' }] },
+  { id: 6, name: 'Plate Preparation', nameId: 'Plate Preparation', status: 'in-progress', progress: 75, workers: ['Fabrication Team A', 'Senior Welder'], inspectionLogs: [{ date: '2026-04-15', inspector: 'Ir. Hadi', result: 'pass', notes: 'Plate bending verified' }] },
+  { id: 7, name: 'Sub-Assembly', nameId: 'Sub-Assembly', status: 'in-progress', progress: 60, workers: ['Assembly Team B', 'Fitter Team'], inspectionLogs: [] },
+  { id: 8, name: 'Welding - Hull', nameId: 'Hull Welding', status: 'in-progress', progress: 45, workers: ['Ahmad S. (WS-001)', 'Budi S. (WS-002)', 'Welding Team'], inspectionLogs: [{ date: '2026-05-10', inspector: 'Ir. Sari', result: 'conditional', notes: 'Minor porosity found on B3-07 joint' }] },
+  { id: 9, name: 'Block Assembly', nameId: 'Block Assembly', status: 'pending', progress: 0, workers: ['Erection Team'], inspectionLogs: [] },
+  { id: 10, name: 'Block Erection', nameId: 'Block Erection', status: 'pending', progress: 0, workers: ['Crane Team', 'Erection Team'], inspectionLogs: [] },
+  { id: 11, name: 'Hull Erection', nameId: 'Hull Erection', status: 'pending', progress: 0, workers: ['Senior Erection Team'], inspectionLogs: [] },
+  { id: 12, name: 'Structural Inspection', nameId: 'Structural Inspection', status: 'pending', progress: 0, workers: ['BKI Surveyor', 'QC Team'], inspectionLogs: [] },
+  { id: 13, name: 'Blasting & Cleaning', nameId: 'Blasting & Cleaning', status: 'pending', progress: 0, workers: ['Blasting Team'], inspectionLogs: [] },
+  { id: 14, name: 'Prime Painting', nameId: 'Primer Painting', status: 'pending', progress: 0, workers: ['Painting Team A'], inspectionLogs: [] },
+  { id: 15, name: 'Final Painting', nameId: 'Final Painting', status: 'pending', progress: 0, workers: ['Painting Team B'], inspectionLogs: [] },
+  { id: 16, name: 'Outfitting - Mechanical', nameId: 'Mechanical Outfitting', status: 'pending', progress: 0, workers: ['Mechanical Team'], inspectionLogs: [] },
+  { id: 17, name: 'Outfitting - Electrical', nameId: 'Electrical Outfitting', status: 'pending', progress: 0, workers: ['Electrical Team'], inspectionLogs: [] },
+  { id: 18, name: 'Outfitting - Piping', nameId: 'Piping Outfitting', status: 'pending', progress: 0, workers: ['Piping Team'], inspectionLogs: [] },
+  { id: 19, name: 'HVAC Installation', nameId: 'HVAC Installation', status: 'pending', progress: 0, workers: ['HVAC Team'], inspectionLogs: [] },
+  { id: 20, name: 'System Testing', nameId: 'System Testing', status: 'pending', progress: 0, workers: ['Commissioning Team'], inspectionLogs: [] },
+  { id: 21, name: 'Final Inspection', nameId: 'Final Inspection', status: 'qa-hold', progress: 30, workers: ['BKI Surveyor', 'Owner Surveyor', 'QC Team'], inspectionLogs: [{ date: '2026-05-20', inspector: 'BKI Surveyor', result: 'fail', notes: 'Awaiting additional NDT results on critical joint' }] },
+  { id: 22, name: 'Quality Assurance', nameId: 'Quality Assurance', status: 'pending', progress: 0, workers: ['QA Manager'], inspectionLogs: [] },
+  { id: 23, name: 'Tank Testing', nameId: 'Tank Testing', status: 'pending', progress: 0, workers: ['Testing Team', 'BKI Surveyor'], inspectionLogs: [] },
+  { id: 24, name: 'Documentation Review', nameId: 'Documentation Review', status: 'pending', progress: 0, workers: ['Document Control'], inspectionLogs: [] },
+  { id: 25, name: 'Sea Trial Prep', nameId: 'Sea Trial Preparation', status: 'pending', progress: 0, workers: ['Sea Trial Team'], inspectionLogs: [] },
+  { id: 26, name: 'Sea Trial Execution', nameId: 'Sea Trial Execution', status: 'pending', progress: 0, workers: ['Test Captain', 'BKI Surveyor', 'Crew'], inspectionLogs: [] },
+  { id: 27, name: 'Delivery & Handover', nameId: 'Delivery & Handover', status: 'pending', progress: 0, workers: ['PM Team', 'Owner Team'], inspectionLogs: [] },
 ]
 
 interface Notification {
@@ -61,7 +61,6 @@ export default function App() {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [toastNotifications, setToastNotifications] = useState<Notification[]>([])
 
-  // Refresh current user from storage in case updated from admin panel
   useEffect(() => {
     const handleStorage = () => {
       setCurrentUser(getCurrentUser())
@@ -106,7 +105,7 @@ export default function App() {
                   date: new Date().toISOString().split('T')[0],
                   inspector: 'AI Surveyor Engine',
                   result: 'fail' as const,
-                  notes: 'Simulasi AI: Ditemukan potensi defect pada inspeksi struktural. Memerlukan NDT tambahan sebelum dapat melanjutkan.',
+                  notes: 'AI Simulation: Potential defect identified during structural inspection. Additional NDT required before proceeding.',
                 },
               ],
             }
@@ -117,8 +116,8 @@ export default function App() {
     const newNotification: Notification = {
       id: Date.now().toString(),
       type: 'error',
-      title: '⚠️ QA Hold — Tahap #12',
-      message: 'AI Surveyor Engine mendeteksi potensi defect pada Inspeksi Struktural (Tahap #12). Status diubah ke QA Hold. Diperlukan NDT tambahan.',
+      title: '⚠️ QA Hold — Step #12',
+      message: 'AI Surveyor Engine detected structural inspection defect (Step #12). Status set to QA Hold. Additional NDT required.',
       timestamp: new Date(),
       read: false,
     }
@@ -126,8 +125,8 @@ export default function App() {
     const infoNotification: Notification = {
       id: (Date.now() + 1).toString(),
       type: 'info',
-      title: '🤖 Simulasi AI Selesai',
-      message: 'Skenario AI berhasil dijalankan. Analisis inspeksi otomatis telah memperbarui status Production Control.',
+      title: '🤖 AI Simulation Completed',
+      message: 'AI Scenario executed successfully. Automatic inspection analysis updated Production Control status.',
       timestamp: new Date(),
       read: false,
     }
@@ -146,7 +145,6 @@ export default function App() {
 
   const isFullWidthModule = activeModule === 'ai-maritime'
 
-  // If Admin View is active, render Admin Portal
   if (isAdminView) {
     return <AdminApp />
   }

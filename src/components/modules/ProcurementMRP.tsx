@@ -1,151 +1,161 @@
 import { useState } from 'react'
-import { Package, Search, TrendingUp, DollarSign, Star, Truck } from 'lucide-react'
+import { Search, ShoppingCart, Truck, CheckCircle, Clock, Sparkles, Building2, Star } from 'lucide-react'
 
 const purchaseOrders = [
-  { id: 'PO-2026-001', vendor: 'PT Krakatau Steel', material: 'Steel Plate AH36', qty: '250 ton', value: '$1,250,000', status: 'received' as const, delivery: '2026-03-01' },
-  { id: 'PO-2026-002', vendor: 'PT Baja Utama', material: 'Steel Pipe SCH40', qty: '500 unit', value: '$320,000', status: 'shipped' as const, delivery: '2026-04-15' },
-  { id: 'PO-2026-003', vendor: 'Nippon Paint Marine', material: 'Epoxy Primer', qty: '2,000 ltr', value: '$85,000', status: 'ordered' as const, delivery: '2026-05-01' },
-  { id: 'PO-2026-004', vendor: 'Lincoln Electric', material: 'Welding Electrode E7018', qty: '5,000 kg', value: '$45,000', status: 'inspected' as const, delivery: '2026-02-20' },
-  { id: 'PO-2026-005', vendor: 'PT Fitting Marine', material: 'Butterfly Valve DN150', qty: '24 unit', value: '$96,000', status: 'ordered' as const, delivery: '2026-05-20' },
-  { id: 'PO-2026-006', vendor: 'Caterpillar', material: 'Main Engine CAT C32', qty: '2 unit', value: '$2,400,000', status: 'shipped' as const, delivery: '2026-06-01' },
+  { id: 'PO-2026-001', vendor: 'PT Krakatau Steel', item: 'AH36 Marine Steel Plate 12mm', qty: '120 Tons', total: '$180,000', status: 'shipped' as const, delivery: '2026-05-15', rating: 4.8 },
+  { id: 'PO-2026-002', vendor: 'PT Gunawan Dianjaya', item: 'A36 Hull Steel Plate 10mm', qty: '85 Tons', total: '$119,000', status: 'received' as const, delivery: '2026-04-20', rating: 4.5 },
+  { id: 'PO-2026-003', vendor: 'PT Piping Jaya Utama', item: 'Seamless Pipe Schedule 80 4"', qty: '450 Meters', total: '$36,000', status: 'ordered' as const, delivery: '2026-05-30', rating: 4.2 },
+  { id: 'PO-2026-004', vendor: 'PT Jotun Indonesia', item: 'Jotamastic 90 Marine Primer', qty: '1,200 Liters', total: '$24,000', status: 'inspected' as const, delivery: '2026-04-10', rating: 4.9 },
+  { id: 'PO-2026-005', vendor: 'PT Nippon Paint Maritim', item: 'Sea-Quantum Anti-Fouling Topcoat', qty: '800 Liters', total: '$28,000', status: 'ordered' as const, delivery: '2026-06-05', rating: 4.6 },
+  { id: 'PO-2026-006', vendor: 'PT Marine Fittings Corp', item: 'Bollard 50T & Fairlead Fairing', qty: '8 Units', total: '$42,000', status: 'shipped' as const, delivery: '2026-05-22', rating: 4.3 },
 ]
 
 const vendors = [
-  { name: 'PT Krakatau Steel', category: 'Steel Plate', rating: 4.5, deliveryRate: 95, orders: 12, totalValue: '$5.2M' },
-  { name: 'Nippon Paint Marine', category: 'Coating', rating: 4.8, deliveryRate: 98, orders: 8, totalValue: '$680K' },
-  { name: 'Lincoln Electric', category: 'Welding Consumable', rating: 4.3, deliveryRate: 92, orders: 15, totalValue: '$320K' },
-  { name: 'Caterpillar', category: 'Main Engine', rating: 4.9, deliveryRate: 100, orders: 2, totalValue: '$4.8M' },
-  { name: 'PT Baja Utama', category: 'Steel Pipe', rating: 4.0, deliveryRate: 88, orders: 10, totalValue: '$1.8M' },
+  { name: 'PT Krakatau Steel', category: 'Steel Plate', leadTime: '14 Days', onTimeRate: '96%', qualityScore: '4.8/5.0', priceLevel: 'Optimal' },
+  { name: 'PT Gunawan Dianjaya', category: 'Steel Plate', leadTime: '21 Days', onTimeRate: '91%', qualityScore: '4.5/5.0', priceLevel: 'Competitive' },
+  { name: 'PT Jotun Indonesia', category: 'Marine Paint', leadTime: '7 Days', onTimeRate: '98%', qualityScore: '4.9/5.0', priceLevel: 'Premium' },
 ]
 
 export default function ProcurementMRP() {
-  const [activeTab, setActiveTab] = useState<'po' | 'vendor'>('po')
+  const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState('all')
+
+  const filtered = purchaseOrders.filter((po) => {
+    const matchSearch = po.item.toLowerCase().includes(search.toLowerCase()) || po.vendor.toLowerCase().includes(search.toLowerCase()) || po.id.toLowerCase().includes(search.toLowerCase())
+    const matchFilter = filter === 'all' || po.status === filter
+    return matchSearch && matchFilter
+  })
 
   const getStatusBadge = (status: string) => {
-    const styles: Record<string, string> = {
-      ordered: 'badge-info',
-      shipped: 'badge-warning',
-      received: 'badge-success',
-      inspected: 'badge-success',
-      rejected: 'badge-danger',
+    switch (status) {
+      case 'received': return <span className="badge badge-success"><CheckCircle size={10} className="mr-1" /> Received</span>
+      case 'inspected': return <span className="badge badge-info"><CheckCircle size={10} className="mr-1" /> Inspected</span>
+      case 'shipped': return <span className="badge badge-warning"><Truck size={10} className="mr-1" /> Shipped</span>
+      default: return <span className="badge badge-neutral"><Clock size={10} className="mr-1" /> Ordered</span>
     }
-    const labels: Record<string, string> = {
-      ordered: 'Dipesan',
-      shipped: 'Dikirim',
-      received: 'Diterima',
-      inspected: 'Diinspeksi',
-      rejected: 'Ditolak',
-    }
-    return <span className={`badge ${styles[status]}`}>{labels[status]}</span>
   }
 
   return (
     <div className="space-y-6 fade-in">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Procurement & MRP</h1>
-        <p className="text-sm text-slate-500 font-medium">Manajemen Pengadaan & Material Requirements Planning</p>
+        <p className="text-sm text-slate-500 font-medium">Material Requirements Planning & Purchase Order Management</p>
       </div>
 
       {/* KPI */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Total PO Aktif', value: '23', icon: Package, color: 'text-blue-600' },
-          { label: 'Nilai Pengadaan', value: '$8.4M', icon: DollarSign, color: 'text-emerald-600' },
-          { label: 'On-Time Delivery', value: '94%', icon: Truck, color: 'text-amber-600' },
-          { label: 'Vendor Aktif', value: '18', icon: Star, color: 'text-purple-600' },
-        ].map((k, i) => {
-          const Icon = k.icon
-          return (
-            <div key={i} className="glass-card rounded-xl p-4">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-semibold text-slate-500">{k.label}</span>
-                <Icon size={16} className={k.color} />
+          { label: 'Active PO Value', value: '$429,000', sub: '6 active POs', color: 'text-blue-600' },
+          { label: 'Material Delivered', value: '62%', sub: '205 Tons steel received', color: 'text-emerald-600' },
+          { label: 'Pending Orders', value: '3 PO', sub: 'Est. delivery May 2026', color: 'text-amber-600' },
+          { label: 'Vendor On-Time Rate', value: '94.8%', sub: 'Average delivery score', color: 'text-sky-600' },
+        ].map((s, i) => (
+          <div key={i} className="glass-card rounded-xl p-4">
+            <p className="text-xs font-semibold text-slate-500">{s.label}</p>
+            <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
+            <p className="text-[11px] font-medium text-slate-500 mt-0.5">{s.sub}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Filter */}
+      <div className="glass-card rounded-xl p-4 flex flex-wrap items-center gap-3">
+        <div className="relative flex-1 min-w-[200px]">
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search PO, vendor, or material..."
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 font-medium"
+          />
+        </div>
+        <div className="flex gap-1">
+          {['all', 'ordered', 'shipped', 'received', 'inspected'].map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-colors ${
+                filter === f ? 'bg-blue-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {f === 'all' ? 'All' : f === 'ordered' ? 'Ordered' : f === 'shipped' ? 'Shipped' : f === 'received' ? 'Received' : 'Inspected'}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* PO Table */}
+      <div className="glass-card rounded-xl overflow-hidden shadow-xs">
+        <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
+          <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <ShoppingCart size={16} className="text-blue-600" /> Purchase Orders Log
+          </h2>
+          <button className="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-blue-700 transition-colors shadow-xs">
+            + Create New PO
+          </button>
+        </div>
+        <table className="w-full table-dark">
+          <thead>
+            <tr>
+              <th>PO Number</th>
+              <th>Vendor</th>
+              <th>Material Description</th>
+              <th>Qty</th>
+              <th>Total Cost</th>
+              <th>Delivery Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((po) => (
+              <tr key={po.id}>
+                <td className="font-mono text-blue-700 font-bold text-xs">{po.id}</td>
+                <td className="font-semibold text-slate-800">{po.vendor}</td>
+                <td>{po.item}</td>
+                <td className="font-medium text-slate-700">{po.qty}</td>
+                <td className="font-bold text-emerald-700">{po.total}</td>
+                <td className="text-xs font-medium text-slate-500">{po.delivery}</td>
+                <td>{getStatusBadge(po.status)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Vendor Analysis */}
+      <div className="glass-card rounded-xl p-5">
+        <h2 className="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <Building2 size={16} className="text-blue-600" /> Vendor Performance Comparison
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {vendors.map((v, i) => (
+            <div key={i} className="p-4 rounded-xl border border-slate-200 bg-slate-50/60 space-y-2">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-bold text-slate-900">{v.name}</h3>
+                <span className="flex items-center gap-1 text-amber-500 font-bold text-xs">
+                  <Star size={12} fill="currentColor" /> {v.qualityScore}
+                </span>
               </div>
-              <p className={`text-2xl font-bold ${k.color}`}>{k.value}</p>
+              <p className="text-[11px] text-slate-500 font-medium">{v.category}</p>
+              <div className="pt-2 border-t border-slate-200/60 grid grid-cols-3 gap-2 text-[11px]">
+                <div>
+                  <span className="text-slate-400 block font-medium">Lead Time</span>
+                  <span className="font-bold text-slate-800">{v.leadTime}</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 block font-medium">On-Time</span>
+                  <span className="font-bold text-emerald-700">{v.onTimeRate}</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 block font-medium">Price</span>
+                  <span className="font-bold text-blue-700">{v.priceLevel}</span>
+                </div>
+              </div>
             </div>
-          )
-        })}
-      </div>
-
-      {/* Tabs */}
-      <div className="flex gap-1 bg-slate-200/70 rounded-lg p-1 w-fit">
-        <button onClick={() => setActiveTab('po')} className={`px-4 py-2 rounded-md text-xs font-semibold transition-colors ${activeTab === 'po' ? 'bg-white text-blue-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'}`}>
-          Purchase Orders
-        </button>
-        <button onClick={() => setActiveTab('vendor')} className={`px-4 py-2 rounded-md text-xs font-semibold transition-colors ${activeTab === 'vendor' ? 'bg-white text-blue-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'}`}>
-          Perbandingan Vendor
-        </button>
-      </div>
-
-      {activeTab === 'po' ? (
-        <div className="glass-card rounded-xl overflow-hidden shadow-xs">
-          <table className="w-full table-dark">
-            <thead>
-              <tr>
-                <th>No. PO</th>
-                <th>Vendor</th>
-                <th>Material</th>
-                <th>Jumlah</th>
-                <th>Nilai</th>
-                <th>Status</th>
-                <th>Estimasi Tiba</th>
-              </tr>
-            </thead>
-            <tbody>
-              {purchaseOrders.map((po) => (
-                <tr key={po.id} className="cursor-pointer">
-                  <td className="font-mono text-blue-700 font-bold text-xs">{po.id}</td>
-                  <td className="text-slate-900 font-semibold">{po.vendor}</td>
-                  <td className="text-slate-700 font-medium">{po.material}</td>
-                  <td>{po.qty}</td>
-                  <td className="text-emerald-700 font-bold">{po.value}</td>
-                  <td>{getStatusBadge(po.status)}</td>
-                  <td className="text-xs font-medium text-slate-500">{po.delivery}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          ))}
         </div>
-      ) : (
-        <div className="glass-card rounded-xl overflow-hidden shadow-xs">
-          <table className="w-full table-dark">
-            <thead>
-              <tr>
-                <th>Vendor</th>
-                <th>Kategori</th>
-                <th>Rating</th>
-                <th>On-Time Delivery</th>
-                <th>Total Order</th>
-                <th>Total Nilai</th>
-              </tr>
-            </thead>
-            <tbody>
-              {vendors.map((v, i) => (
-                <tr key={i}>
-                  <td className="text-slate-900 font-semibold">{v.name}</td>
-                  <td className="text-slate-700 font-medium">{v.category}</td>
-                  <td>
-                    <div className="flex items-center gap-1 font-bold text-slate-800">
-                      <Star size={13} className="text-amber-500 fill-amber-500" />
-                      <span>{v.rating}</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="flex items-center gap-2">
-                      <div className="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div className={`h-full rounded-full ${v.deliveryRate >= 95 ? 'bg-emerald-500' : v.deliveryRate >= 90 ? 'bg-amber-500' : 'bg-red-500'}`} style={{ width: `${v.deliveryRate}%` }} />
-                      </div>
-                      <span className="text-xs font-semibold text-slate-700">{v.deliveryRate}%</span>
-                    </div>
-                  </td>
-                  <td className="font-medium text-slate-700">{v.orders}</td>
-                  <td className="text-emerald-700 font-bold">{v.totalValue}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      </div>
     </div>
   )
 }

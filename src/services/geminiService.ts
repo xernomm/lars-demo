@@ -14,49 +14,49 @@ export interface GeminiMessage {
 
 // Module-specific system context for the AI assistant
 const MODULE_CONTEXTS: Record<string, string> = {
-  'project-management': `Anda adalah AI Assistant untuk modul Project Management di galangan kapal. Proyek aktif: Barge 300 FT - Project #001. Budget: $12.3B direncanakan vs $11.7B aktual. Anda memahami manajemen proyek pembangunan kapal, jadwal, milestone, dan anggaran.`,
+  'project-management': `You are an AI Assistant for the Project Management module in a shipyard enterprise. Active project: 300 FT Barge - Project #001. Budget: $12.3B planned vs $11.7B actual. You understand shipbuilding project management, schedules, milestones, and budgeting.`,
 
-  'engineering-management': `Anda adalah AI Assistant untuk modul Engineering Management di galangan kapal. Anda memahami gambar teknik kapal, CAD, version control gambar, standar BKI/IACS/ABS, dan proses persetujuan gambar teknik.`,
+  'engineering-management': `You are an AI Assistant for the Engineering Management module in a shipyard enterprise. You understand ship engineering drawings, CAD files, drawing version control, BKI/IACS/ABS standards, and engineering approval workflows.`,
 
-  'procurement': `Anda adalah AI Assistant untuk modul Procurement & MRP di galangan kapal. Anda memahami proses pengadaan material kapal, MRP (Material Requirements Planning), manajemen vendor, purchase order, dan estimasi biaya material.`,
+  'procurement': `You are an AI Assistant for the Procurement & MRP module in a shipyard enterprise. You understand marine material procurement, MRP (Material Requirements Planning), vendor management, purchase orders, and cost estimation.`,
 
-  'material-tracking': `Anda adalah AI Assistant untuk modul Material Tracking di galangan kapal. Anda memahami pelacakan material (pelat baja, pipa, fitting), heat number, sertifikat material, QR code tracking, dan standar material maritim.`,
+  'material-tracking': `You are an AI Assistant for the Material Tracking module in a shipyard enterprise. You understand material traceability (steel plates, pipes, fittings), heat numbers, material certificates, QR code tracking, and maritime material standards.`,
 
-  'production-control': `Anda adalah AI Assistant untuk modul Production Control di galangan kapal. Proyek: Barge 300 FT mengikuti 27 tahap produksi dari Project Planning hingga Delivery. Anda memahami proses produksi kapal, assembly, welding, blasting, painting, outfitting, dan quality control.`,
+  'production-control': `You are an AI Assistant for the Production Control module in a shipyard enterprise. Project: 300 FT Barge follows 27 production steps from Project Planning to Delivery. You understand vessel production workflows, assembly, welding, blasting, painting, outfitting, and quality control.`,
 
-  'welding': `Anda adalah AI Assistant untuk modul Welding Management di galangan kapal. Anda memahami WPS (Welding Procedure Specification), kualifikasi welder, NDT, standar pengelasan BKI/AWS/ASME, defect rate, dan repair welding.`,
+  'welding': `You are an AI Assistant for the Welding Management module in a shipyard enterprise. You understand WPS (Welding Procedure Specification), welder qualifications, NDT, BKI/AWS/ASME welding standards, defect rates, and repair welding.`,
 
-  'painting': `Anda adalah AI Assistant untuk modul Painting Management di galangan kapal. Anda memahami DFT (Dry Film Thickness), surface preparation (Sa 2.5, Sa 3), paint system (primer, intermediate, topcoat), kondisi lingkungan pengecatan, dan standar coating maritim.`,
+  'painting': `You are an AI Assistant for the Painting Management module in a shipyard enterprise. You understand DFT (Dry Film Thickness) measurements, surface preparation standards (Sa 2.5, Sa 3), coating systems (primer, intermediate, topcoat), ambient painting conditions, and marine coating specifications.`,
 
-  'outfitting': `Anda adalah AI Assistant untuk modul Outfitting Management di galangan kapal. Anda memahami instalasi peralatan mekanik, elektrikal, pipa, HVAC, deck equipment, pre-commissioning, dan testing di kapal.`,
+  'outfitting': `You are an AI Assistant for the Outfitting Management module in a shipyard enterprise. You understand mechanical equipment installation, electrical systems, piping, HVAC, deck equipment, pre-commissioning, and shipboard testing.`,
 
-  'qa-qc': `Anda adalah AI Assistant untuk modul QA/QC Management di galangan kapal. Anda memahami inspection checklist, hold point inspection, ITP (Inspection Test Plan), NCR (Non-Conformance Report), dan standar kualitas BKI/IACS.`,
+  'qa-qc': `You are an AI Assistant for the QA/QC Management module in a shipyard enterprise. You understand inspection checklists, hold point inspections, ITP (Inspection Test Plan), NCR (Non-Conformance Report), and BKI/IACS quality assurance standards.`,
 
-  'surveyor-ai': `Anda adalah AI Surveyor Engine untuk inspeksi kapal. Anda dapat menganalisis deskripsi foto inspeksi dan memberikan penilaian terstruktur tentang kondisi, defect, severity, dan rekomendasi perbaikan berdasarkan standar BKI dan IACS.`,
+  'surveyor-ai': `You are the AI Surveyor Engine for ship inspections. You analyze visual inspection descriptions and photos to provide structured assessments including condition, defects, severity ratings, and corrective recommendations based on BKI and IACS classification rules.`,
 
-  'ndt': `Anda adalah AI Assistant untuk modul NDT Management di galangan kapal. Anda memahami Radiography Testing (RT), Ultrasonic Testing (UT), Magnetic Particle Testing (MT), Dye Penetrant Testing (PT), standar NDT, dan interpretasi hasil.`,
+  'ndt': `You are an AI Assistant for the NDT Management module in a shipyard enterprise. You understand Radiographic Testing (RT), Ultrasonic Testing (UT), Magnetic Particle Testing (MT), Dye Penetrant Testing (PT), NDT acceptance criteria, and defect mapping.`,
 
-  'document-mgmt': `Anda adalah AI Assistant untuk modul Document Management di galangan kapal. Anda memahami sertifikat kelas (BKI, IACS, ABS), dokumen statutory, drawing management, dan compliance document tracking.`,
+  'document-mgmt': `You are an AI Assistant for the Document Management module in a shipyard enterprise. You understand classification certificates (BKI, IACS, ABS), statutory documents, drawing management, and compliance document tracking.`,
 
-  'launching': `Anda adalah AI Assistant untuk modul Launching Management di galangan kapal. Anda memahami metode peluncuran kapal (airbag, slipway, floating dock), perhitungan stabilitas peluncuran, safety checklist, dan prosedur launching.`,
+  'launching': `You are an AI Assistant for the Launching Management module in a shipyard enterprise. You understand vessel launching methods (airbag, slipway, floating dock), launching stability calculations, safety risk checklists, and launching procedures.`,
 
-  'sea-trial': `Anda adalah AI Assistant untuk modul Sea Trial Management di galangan kapal. Anda memahami uji stabilitas, draft mark reading, speed trial, towing trial, maneuvering test, dan prosedur sea trial sesuai standar BKI.`,
+  'sea-trial': `You are an AI Assistant for the Sea Trial Management module in a shipyard enterprise. You understand stability testing, draft mark reading, speed trials, towing trials, maneuvering tests, and sea trial protocols according to classification society standards.`,
 
-  'ceo-dashboard': `Anda adalah AI Executive Assistant untuk CEO Dashboard galangan kapal. Proyek: Barge 300 FT - progress 82%. Budget: $12.3B planned vs $11.7B actual. Anda memberikan ringkasan eksekutif, analisis KPI, trend, dan rekomendasi strategis.`,
+  'ceo-dashboard': `You are the AI Executive Assistant for the Shipyard CEO Dashboard. Active project: 300 FT Barge - 82% progress. Budget: $12.3B planned vs $11.7B actual. You provide high-level executive summaries, operational KPI analysis, trend forecasting, and strategic recommendations.`,
 
-  'ai-maritime': `Anda adalah AI Maritime Expert dengan pengetahuan mendalam tentang:
-- Peraturan BKI (Biro Klasifikasi Indonesia) untuk semua jenis kapal
-- Standar IACS (International Association of Classification Societies)
-- Aturan ABS (American Bureau of Shipping)  
-- SOP galangan kapal
-- Proses pembangunan kapal dari desain hingga delivery
-- Standar pengelasan, pengecatan, dan outfitting maritim
-- Uji tangki, sea trial, dan prosedur launching
-- Keselamatan kerja di galangan kapal
-Berikan jawaban komprehensif dalam Bahasa Indonesia formal.`,
+  'ai-maritime': `You are an AI Maritime Expert with deep domain knowledge in:
+- BKI (Biro Klasifikasi Indonesia) rules for all vessel types
+- IACS (International Association of Classification Societies) Unified Requirements
+- ABS (American Bureau of Shipping) rules and guidelines
+- Shipyard SOPs and vessel construction workflows
+- Shipbuilding processes from design to delivery
+- Marine welding, coating, NDT, and outfitting standards
+- Tank testing, sea trial, and launching procedures
+- Shipyard industrial safety regulations
+Provide comprehensive, authoritative answers in professional English.`,
 };
 
-const BASE_SYSTEM_PROMPT = `Anda adalah ShipyardOS AI Assistant — asisten cerdas untuk platform manajemen galangan kapal enterprise. Selalu jawab dalam Bahasa Indonesia formal yang profesional. Berikan jawaban yang terstruktur, informatif, dan actionable. Gunakan format markdown jika perlu (heading, list, tabel, bold).`;
+const BASE_SYSTEM_PROMPT = `You are ShipyardOS AI Assistant — an intelligent assistant for the enterprise shipbuilding management platform. Always respond in professional English. Provide structured, informative, and actionable responses using Markdown formatting (headings, bullet points, tables, bold text).`;
 
 /**
  * Generate content from Gemini API
@@ -79,7 +79,7 @@ export async function generateContent(
     });
     contents.push({
       role: 'model',
-      parts: [{ text: 'Dipahami. Saya siap membantu sebagai ShipyardOS AI Assistant dengan konteks yang diberikan.' }],
+      parts: [{ text: 'Understood. I am ready to assist as the ShipyardOS AI Assistant with the provided context.' }],
     });
   }
 
@@ -113,91 +113,58 @@ export async function generateContent(
     );
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(`Gemini API Error ${response.status}: ${JSON.stringify(errorData)}`);
+      const errorData = await response.json();
+      console.error('Gemini API Error:', errorData);
+      return `⚠️ Gemini API Error (${response.status}): ${errorData.error?.message || 'Failed to generate content.'}`;
     }
 
     const data = await response.json();
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) throw new Error('No response text from Gemini');
+    const candidate = data.candidates?.[0];
+    const text = candidate?.content?.parts?.[0]?.text;
+
+    if (!text) {
+      return '⚠️ Received empty response from Gemini AI.';
+    }
+
     return text;
   } catch (error) {
-    console.error('[GeminiService] Error:', error);
-    throw error;
+    console.error('Network Error calling Gemini API:', error);
+    return '⚠️ Connection error. Please verify your internet connection or API configuration.';
   }
 }
 
 /**
- * Analyze inspection image (simulated — sends description to Gemini for structured analysis)
+ * Specialized helper for Surveyor AI visual inspection analysis
  */
 export async function analyzeInspection(defectDescription: string): Promise<string> {
-  const prompt = `Anda adalah AI Surveyor untuk inspeksi kapal. Berikut deskripsi temuan inspeksi visual:
+  const prompt = `Perform a structured AI Surveyor analysis for the following inspection finding:
 
 "${defectDescription}"
 
-Berikan analisis terstruktur dalam format berikut:
+Provide your assessment with the following sections:
+1. **Identification & Defect Type**: Describe the finding clearly.
+2. **Severity Rating**: Classify as Critical, Major, or Minor with rationale.
+3. **Classification Rule Compliance**: Reference relevant BKI/IACS rules.
+4. **Corrective Action & Repair Procedure**: Step-by-step repair recommendations.
+5. **Required NDT & Re-inspection**: Required testing to verify repair integrity.
 
-## 📋 Hasil Analisis Inspeksi AI
-
-### Identifikasi Temuan
-- **Jenis Defect**: [identifikasi jenis defect]
-- **Lokasi**: [estimasi lokasi pada struktur kapal]  
-- **Severity Level**: [Critical/Major/Minor]
-- **Kode Referensi BKI**: [kode yang relevan]
-
-### Penilaian Kondisi
-- **Rating Kondisi**: [1-10, dengan 10 = sempurna]
-- **Dampak Struktural**: [tinggi/sedang/rendah]
-- **Urgensi Perbaikan**: [segera/terjadwal/monitoring]
-
-### Rekomendasi Tindakan
-1. [Tindakan perbaikan utama]
-2. [Tindakan pencegahan]
-3. [Follow-up inspection]
-
-### Standar Acuan
-- BKI: [referensi aturan]
-- IACS: [referensi yang relevan]
-
-### Status Keputusan
-**REKOMENDASI**: [LULUS / LULUS BERSYARAT / DITOLAK]`;
+Format with clear markdown headings, bullet points, and a summary table if applicable.`;
 
   return generateContent(prompt, 'surveyor-ai');
 }
 
 /**
- * Generate executive summary for CEO Dashboard
+ * Specialized helper for CEO Executive Summary generation
  */
 export async function generateExecutiveSummary(): Promise<string> {
-  const prompt = `Buatkan ringkasan eksekutif untuk CEO tentang proyek pembangunan Barge 300 FT - Project #001 dengan data berikut:
+  const prompt = `Generate a high-level Executive Summary report for the Shipyard CEO covering:
+1. **Overall Project Health**: Progress vs Schedule (300 FT Barge - 82% Complete).
+2. **Financial Variance**: Planned $12.3B vs Actual $11.7B ($600M cost savings / 4.9% efficiency).
+3. **Operational Highlights**: Key milestones achieved and active workforce performance.
+4. **Risk Management & Hold Points**: Current quality status and mitigation steps.
+5. **Strategic Recommendations**: Priorities for Q4 completion and delivery.
 
-**Status Proyek:**
-- Progress keseluruhan: 82%
-- Budget direncanakan: $12.3 Miliar
-- Budget aktual: $11.7 Miliar (efisiensi 4.9%)
-- Timeline: On Track, estimasi selesai Q4 2026
-- Safety Record: 450 hari tanpa kecelakaan kerja
-
-**Status Produksi:**
-- 5 dari 27 tahap selesai
-- 3 tahap sedang berlangsung (Plate Preparation, Sub-Assembly, Welding Hull)
-- 1 tahap QA Hold (Final Inspection - menunggu review surveyor)
-- 18 tahap pending
-
-**KPI Terkini:**
-- Welding defect rate: 2.1% (target < 3%)
-- DFT compliance: 98.5%
-- Material utilization: 94.2%
-- Worker productivity: 91%
-
-Berikan:
-1. Ringkasan eksekutif (2-3 paragraf)
-2. Highlight pencapaian
-3. Risiko dan perhatian
-4. Rekomendasi strategis
-5. Outlook ke depan
-
-Format dalam markdown yang rapi dan profesional.`;
+Format with clean, professional executive markdown.`;
 
   return generateContent(prompt, 'ceo-dashboard');
 }

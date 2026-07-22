@@ -9,86 +9,86 @@ interface ChatPanelProps {
 
 const contextualPrompts: Record<string, string[]> = {
   'project-management': [
-    'Tampilkan tabel status proyek Barge 300 FT',
-    'Analisis varian budget proyek',
-    'Risiko keterlambatan jadwal',
+    'Show project status summary table for 300 FT Barge',
+    'Analyze budget variance & cost efficiency',
+    'Evaluate schedule delay risks',
   ],
   'engineering-management': [
-    'Tabel daftar gambar teknik terbaru',
-    'Standar BKI untuk hull structure',
-    'Checklist approval gambar',
+    'Display engineering drawings status table',
+    'Review BKI rules for hull structure',
+    'Check drawing approval checklist',
   ],
   'procurement': [
-    'Tabel status pengadaan material',
-    'Perbandingan vendor steel plate',
-    'Estimasi biaya material outstanding',
+    'Show material procurement status table',
+    'Compare steel plate vendors',
+    'Estimate outstanding material costs',
   ],
   'material-tracking': [
-    'Laporan stok material terkini',
-    'Material yang perlu reorder',
-    'Traceability heat number',
+    'Display current material inventory report',
+    'List materials requiring reorder',
+    'Verify heat number traceability',
   ],
   'production-control': [
-    'Tabel progress 27 tahap produksi',
-    'Analisis bottleneck produksi',
-    'Prediksi delay potensial',
+    'Show 27 production steps progress table',
+    'Analyze production bottlenecks',
+    'Predict potential delay factors',
   ],
   'welding': [
-    'Tabel analisis defect rate pengelasan',
-    'Sertifikat welder yang akan expired',
-    'Rekomendasi improvement welding',
+    'Display welding defect rate analysis table',
+    'List welders with expiring certificates',
+    'Recommend welding quality improvements',
   ],
   'painting': [
-    'Laporan DFT measurement terkini',
-    'Status surface preparation',
-    'Analisis efisiensi cat',
+    'Show recent DFT measurement log report',
+    'Verify surface preparation standards',
+    'Analyze coating consumption efficiency',
   ],
   'outfitting': [
-    'Status instalasi peralatan',
-    'Checklist pre-commissioning',
-    'Progress piping installation',
+    'Display equipment installation status',
+    'Review pre-commissioning checklist',
+    'Track piping installation progress',
   ],
   'qa-qc': [
-    'Ringkasan inspeksi minggu ini dalam tabel',
-    'NCR yang masih terbuka',
-    'Hold point status tracker',
+    'Show weekly inspection summary table',
+    'List open Non-Conformance Reports (NCR)',
+    'Track Hold Point inspection status',
   ],
   'surveyor-ai': [
-    'Cara menggunakan inspeksi AI',
-    'Standar inspeksi visual BKI',
-    'Kategori severity defect',
+    'Guide to AI Surveyor Engine features',
+    'BKI visual inspection standards overview',
+    'Defect severity classification criteria',
   ],
   'ndt': [
-    'Tabel hasil NDT terbaru',
-    'Acceptance criteria RT/UT',
-    'Mapping lokasi defect',
+    'Display latest NDT test results table',
+    'Review RT/UT acceptance criteria',
+    'Map defect locations on hull structure',
   ],
   'document-mgmt': [
-    'Daftar sertifikat yang akan expired',
-    'Status dokumen kelas BKI',
-    'Checklist dokumen delivery',
+    'List certificates expiring within 60 days',
+    'Check BKI classification document status',
+    'Delivery documentation checklist',
   ],
   'launching': [
-    'Perbandingan metode launching',
-    'Safety checklist peluncuran',
-    'Perhitungan buoyancy',
+    'Compare vessel launching methods',
+    'Safety risk launching checklist',
+    'Buoyancy and stability calculations',
   ],
   'sea-trial': [
-    'Tabel hasil uji sea trial BKI',
-    'Parameter stability test',
-    'Checklist towing trial',
+    'Show sea trial test results table',
+    'Inclining experiment & GM parameters',
+    'Towing trial checklist',
   ],
   'ceo-dashboard': [
-    'Ringkasan eksekutif proyek',
-    'Analisis KPI operasional',
-    'Forecast penyelesaian proyek',
+    'Generate AI Executive Summary report',
+    'Analyze operational KPIs & cost variance',
+    'Project completion forecast',
   ],
   'ai-maritime': [
-    'Tabel aturan BKI untuk Uji Tangki',
-    'Persyaratan Pengelasan Lambung',
-    'Standar coating marine vessel',
-    'Prosedur peluncuran kapal airbag',
-    'Regulasi IACS untuk hull survey',
+    'Display BKI Tank Testing rules table',
+    'Hull Welding specification requirements',
+    'Marine vessel coating standards',
+    'Airbag ship launching procedures',
+    'IACS UR Z10 hull survey regulations',
   ],
 }
 
@@ -103,7 +103,7 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
     {
       id: '1',
       role: 'assistant',
-      content: '🚢 Halo! Saya **ShipyardOS AI Assistant**. Saya siap membantu Anda dengan informasi terkait galangan kapal, produksi, inspeksi, dan regulasi maritim dengan dukungan format markdown & tabel GFM.',
+      content: '🚢 Hello! I am **ShipyardOS AI Assistant**. I am ready to assist you with shipyard operations, production tracking, QA/QC inspections, and classification rules with full Markdown & GFM Table support.',
     },
   ])
   const [input, setInput] = useState('')
@@ -165,7 +165,7 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
       const errorMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: '⚠️ Maaf, terjadi kesalahan saat menghubungi AI. Silakan coba lagi dalam beberapa saat.',
+        content: '⚠️ Connection error contacting Gemini AI. Please try again.',
       }
       setMessages((prev) => [...prev, errorMsg])
     } finally {
@@ -177,7 +177,7 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
     setMessages([{
       id: '1',
       role: 'assistant',
-      content: '🚢 Chat telah direset. Saya siap membantu kembali!',
+      content: '🚢 Conversation reset. Ready to assist!',
     }])
     setConversationHistory([])
   }
@@ -218,7 +218,7 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                 <div className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                <span className="text-[10px] text-slate-500 ml-1 font-medium">Menganalisis...</span>
+                <span className="text-[10px] text-slate-500 ml-1 font-medium">Analyzing...</span>
               </div>
             </div>
           </div>
@@ -230,7 +230,7 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
       {messages.length <= 1 && (
         <div className="px-3 py-2 border-t border-slate-200 bg-white">
           <p className="text-[10px] text-slate-500 mb-1.5 flex items-center gap-1 font-semibold">
-            <Sparkles size={10} className="text-emerald-600" /> Pertanyaan Cepat:
+            <Sparkles size={10} className="text-emerald-600" /> Suggested Prompts:
           </p>
           <div className="space-y-1">
             {prompts.slice(0, 3).map((prompt, idx) => (
@@ -259,7 +259,7 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
                 handleSend(input)
               }
             }}
-            placeholder="Ketik pertanyaan..."
+            placeholder="Ask a question..."
             disabled={isLoading}
             className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 disabled:opacity-50 font-medium"
           />
@@ -298,13 +298,13 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
             <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold">Live</span>
           </div>
           <div className="flex items-center gap-1" data-no-drag>
-            <button onClick={clearChat} className="p-1 hover:bg-slate-200 rounded transition-colors text-slate-500" title="Bersihkan Chat">
+            <button onClick={clearChat} className="p-1 hover:bg-slate-200 rounded transition-colors text-slate-500" title="Clear Chat">
               <Trash2 size={13} />
             </button>
             <button onClick={() => setIsFloating(false)} className="p-1 hover:bg-slate-200 rounded transition-colors text-slate-500" title="Dock">
               <Minimize2 size={13} />
             </button>
-            <button onClick={() => setIsFloating(false)} className="p-1 hover:bg-slate-200 rounded transition-colors text-slate-500" title="Tutup">
+            <button onClick={() => setIsFloating(false)} className="p-1 hover:bg-slate-200 rounded transition-colors text-slate-500" title="Close">
               <X size={13} />
             </button>
           </div>
@@ -327,7 +327,7 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={clearChat} className="p-1.5 hover:bg-slate-200/60 rounded-lg transition-colors text-slate-500" title="Bersihkan Chat">
+          <button onClick={clearChat} className="p-1.5 hover:bg-slate-200/60 rounded-lg transition-colors text-slate-500" title="Clear Chat">
             <Trash2 size={14} />
           </button>
           <button onClick={() => setIsFloating(true)} className="p-1.5 hover:bg-slate-200/60 rounded-lg transition-colors text-slate-500" title="Pop Out">
