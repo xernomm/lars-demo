@@ -9,9 +9,9 @@ class ApiService {
   private enableMockData: boolean;
 
   constructor() {
-    const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
-    const timeout = parseInt(import.meta.env.VITE_API_TIMEOUT || '30000', 10);
-    this.enableMockData = import.meta.env.VITE_ENABLE_MOCK_DATA === 'true';
+    const baseURL = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:3001';
+    const timeout = parseInt((import.meta as any).env?.VITE_API_TIMEOUT || '30000', 10);
+    this.enableMockData = (import.meta as any).env?.VITE_ENABLE_MOCK_DATA === 'true';
 
     this.axiosInstance = axios.create({
       baseURL,

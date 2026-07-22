@@ -80,12 +80,12 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
             : 'bg-amber-50 text-amber-700 border border-amber-200'
         }`}>
           {apiConnected === true ? <Wifi size={11} className="text-emerald-600" /> : apiConnected === false ? <WifiOff size={11} /> : <Activity size={11} />}
-          Gemini API: {apiConnected === true ? 'Connected' : apiConnected === false ? 'Disconnected' : 'Checking...'}
+          LARS-AI API: {apiConnected === true ? 'Connected' : apiConnected === false ? 'Disconnected' : 'Checking...'}
         </span>
 
         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-sky-50 text-sky-700 border border-sky-200">
           <Cpu size={11} className="text-sky-600" />
-          AI Model: gemini-3.5-flash
+          AI Model: LARS-AI Engine
         </span>
       </div>
 

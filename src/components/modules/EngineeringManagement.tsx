@@ -165,7 +165,7 @@ Format with clean markdown headings and summary bullet points.`,
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" />
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-              <span>Gemini AI is analyzing CAD specifications...</span>
+              <span>LARS-AI is analyzing CAD specifications...</span>
             </div>
           ) : (
             <MarkdownRenderer content={aiResult || ''} />

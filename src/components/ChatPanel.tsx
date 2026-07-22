@@ -165,7 +165,7 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
       const errorMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: '⚠️ Connection error contacting Gemini AI. Please try again.',
+        content: '⚠️ Connection error contacting LARS-AI. Please try again.',
       }
       setMessages((prev) => [...prev, errorMsg])
     } finally {
@@ -323,7 +323,7 @@ export default function ChatPanel({ activeModule }: ChatPanelProps) {
           </div>
           <div>
             <h3 className="text-xs font-bold text-slate-800 leading-none">AI Assistant</h3>
-            <p className="text-[9px] text-slate-500 font-medium">Gemini 3.5 Flash + GFM Markdown</p>
+            <p className="text-[9px] text-slate-500 font-medium">LARS-AI Engine + GFM Markdown</p>
           </div>
         </div>
         <div className="flex items-center gap-1">

@@ -75,7 +75,7 @@ Select a topic prompt below or type your custom query to receive detailed techni
       const errorMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: '⚠️ Connection error reaching Gemini AI. Please try again.',
+        content: '⚠️ Connection error reaching LARS-AI. Please try again.',
       }
       setMessages((prev) => [...prev, errorMsg])
     } finally {
@@ -98,7 +98,7 @@ Select a topic prompt below or type your custom query to receive detailed techni
         </div>
         <div className="hidden sm:flex items-center gap-2">
           <span className="badge badge-info text-xs font-bold"><ShieldCheck size={12} className="mr-1" /> BKI Certified KB</span>
-          <span className="badge badge-success text-xs font-bold"><Cpu size={12} className="mr-1" /> Gemini 3.5 Flash</span>
+          <span className="badge badge-success text-xs font-bold"><Cpu size={12} className="mr-1" /> LARS-AI Engine</span>
         </div>
       </div>
 

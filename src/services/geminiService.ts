@@ -1,6 +1,6 @@
 /**
- * Gemini API Service — Direct REST calls to Google AI Studio
- * Model: gemini-1.5-flash
+ * LARS-AI Service — Direct REST calls
+ * Engine: LARS-AI
  */
 
 const GEMINI_API_KEY = (import.meta as any).env?.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env?.VITE_GEMINI_API_KEY : '') || '';
@@ -114,8 +114,8 @@ export async function generateContent(
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Gemini API Error:', errorData);
-      return `⚠️ Gemini API Error (${response.status}): ${errorData.error?.message || 'Failed to generate content.'}`;
+      console.error('LARS-AI API Error:', errorData);
+      return `⚠️ LARS-AI API Error (${response.status}): ${errorData.error?.message || 'Failed to generate content.'}`;
     }
 
     const data = await response.json();
@@ -123,12 +123,12 @@ export async function generateContent(
     const text = candidate?.content?.parts?.[0]?.text;
 
     if (!text) {
-      return '⚠️ Received empty response from Gemini AI.';
+      return '⚠️ Received empty response from LARS-AI.';
     }
 
     return text;
   } catch (error) {
-    console.error('Network Error calling Gemini API:', error);
+    console.error('Network Error calling LARS-AI API:', error);
     return '⚠️ Connection error. Please verify your internet connection or API configuration.';
   }
 }
