@@ -1,0 +1,245 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-main: #f8fafc;
+  --surface-white: #ffffff;
+  --surface-card: #ffffff;
+  --surface-card-hover: #f1f5f9;
+  --surface-border: #e2e8f0;
+  --maritime-blue: #2563eb;
+  --maritime-cyan: #0284c7;
+  --maritime-emerald: #10b981;
+  --maritime-accent: #3b82f6;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+}
+
+html {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-primary);
+  background-color: var(--bg-main);
+}
+
+/* === Scrollbar === */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* === Sleek Modern Light Glass === */
+.glass {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+
+.glass-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.08);
+}
+
+/* === Sleek Modern Gradients === */
+.gradient-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.gradient-sidebar {
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+}
+
+.gradient-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.gradient-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* === Status Badges === */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold;
+}
+
+.badge-success {
+  @apply bg-emerald-50 text-emerald-700 border border-emerald-200;
+}
+
+.badge-warning {
+  @apply bg-amber-50 text-amber-700 border border-amber-200;
+}
+
+.badge-danger {
+  @apply bg-red-50 text-red-700 border border-red-200;
+}
+
+.badge-info {
+  @apply bg-blue-50 text-blue-700 border border-blue-200;
+}
+
+.badge-neutral {
+  @apply bg-slate-100 text-slate-700 border border-slate-200;
+}
+
+/* === Interactive Utilities === */
+.clickable-card {
+  @apply cursor-pointer transition-all duration-200;
+}
+
+.clickable-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
+}
+
+.clickable-card:active {
+  transform: translateY(0);
+}
+
+/* === Animation Utilities === */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.slide-in {
+  animation: slideInUp 0.3s ease-out;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* === Data Table Light === */
+.table-dark {
+  @apply w-full text-left text-sm border-collapse;
+}
+
+.table-dark thead tr {
+  @apply bg-slate-50 border-b border-slate-200;
+}
+
+.table-dark thead th {
+  @apply px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider;
+}
+
+.table-dark tbody tr {
+  @apply border-b border-slate-100 transition-colors bg-white;
+}
+
+.table-dark tbody tr:hover {
+  @apply bg-blue-50/40;
+}
+
+.table-dark tbody td {
+  @apply px-4 py-3 text-sm text-slate-700;
+}
+
+/* === Progress Bar === */
+.progress-bar {
+  @apply w-full rounded-full overflow-hidden bg-slate-100;
+  height: 8px;
+}
+
+.progress-bar-fill {
+  @apply h-full rounded-full transition-all duration-700 ease-out;
+}
+
+/* === Divider Drag Handle === */
+.drag-divider {
+  @apply cursor-col-resize relative;
+  width: 4px;
+  background: #e2e8f0;
+  transition: background 0.2s ease;
+}
+
+.drag-divider:hover {
+  background: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+
+.drag-divider::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 40px;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.drag-divider:hover::after {
+  background: #2563eb;
+}
+
+/* === Markdown Rendered Content Light === */
+.markdown-content h1 { @apply text-xl font-bold text-slate-900 mb-3; }
+.markdown-content h2 { @apply text-lg font-semibold text-slate-900 mb-2; }
+.markdown-content h3 { @apply text-base font-semibold text-slate-800 mb-2; }
+.markdown-content p { @apply text-sm text-slate-700 mb-2 leading-relaxed; }
+.markdown-content ul { @apply list-disc list-inside text-sm text-slate-700 mb-2 space-y-1; }
+.markdown-content ol { @apply list-decimal list-inside text-sm text-slate-700 mb-2 space-y-1; }
+.markdown-content li { @apply text-sm text-slate-700; }
+.markdown-content code { @apply bg-slate-100 text-blue-700 px-1.5 py-0.5 rounded text-xs font-mono border border-slate-200; }
+.markdown-content pre { @apply bg-slate-900 text-slate-100 border border-slate-700 rounded-lg p-3 mb-3 overflow-x-auto; }
+.markdown-content pre code { @apply bg-transparent p-0 text-slate-100 border-none; }
+.markdown-content strong { @apply text-slate-900 font-semibold; }
+.markdown-content em { @apply text-slate-800 italic; }
+.markdown-content blockquote { @apply border-l-4 border-blue-500 pl-3 text-slate-600 italic my-2 bg-blue-50/50 py-1 rounded-r; }
+.markdown-content table { @apply w-full text-sm border-collapse mb-3; }
+.markdown-content th { @apply text-left px-3 py-2 bg-slate-100 text-slate-800 font-semibold border border-slate-200; }
+.markdown-content td { @apply px-3 py-2 border border-slate-200 text-slate-700; }
+
+::selection {
+  background: #dbeafe;
+  color: #1e3a8a;
+}
