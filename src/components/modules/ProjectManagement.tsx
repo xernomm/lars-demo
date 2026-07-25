@@ -75,7 +75,7 @@ export default function ProjectManagement() {
         ].map((card, idx) => {
           const Icon = card.icon
           return (
-            <div key={idx} className={`glass-card rounded-xl p-4.5 border ${card.color} shadow-xs`}>
+            <div key={idx} className={`glass-card rounded-xl p-8 border ${card.color} shadow-xs`}>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-semibold text-slate-600">{card.label}</span>
                 <Icon size={18} className={card.iconColor} />
@@ -200,11 +200,10 @@ export default function ProjectManagement() {
         <div className="flex items-center gap-3 overflow-x-auto pb-2">
           {milestones.map((ms, idx) => (
             <div key={idx} className="flex items-center gap-3 flex-shrink-0">
-              <div className={`flex flex-col items-center p-3.5 rounded-xl border min-w-[130px] transition-all ${
-                ms.status === 'done' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' :
+              <div className={`flex flex-col items-center p-3.5 rounded-xl border min-w-[130px] transition-all ${ms.status === 'done' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' :
                 ms.status === 'in-progress' ? 'bg-blue-50 border-blue-200 text-blue-800 shadow-xs' :
-                'bg-slate-50 border-slate-200 text-slate-600'
-              }`}>
+                  'bg-slate-50 border-slate-200 text-slate-600'
+                }`}>
                 <Flag size={16} className={ms.status === 'done' ? 'text-emerald-600' : ms.status === 'in-progress' ? 'text-blue-600' : 'text-slate-400'} />
                 <span className="text-xs font-bold mt-1 text-center">{ms.name}</span>
                 <span className="text-[10px] font-medium text-slate-500 mt-0.5">{ms.date}</span>
