@@ -35,7 +35,7 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
   const unreadCount = notifications.filter((n: any) => !n.read).length
 
   return (
-    <header className="bg-white border-b border-slate-200 h-14 flex items-center justify-between px-4 z-30 relative shadow-sm">
+    <header style={{ padding: "40px" }} className="bg-white border-b border-slate-200 h-14 flex items-center justify-between px-4 z-30 relative shadow-sm">
       {/* Left — Logo & Project */}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
@@ -61,24 +61,22 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
         {/* Active License Badge Pill */}
         <button
           onClick={() => setShowLicenseModal(true)}
-          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold cursor-pointer transition-all hover:scale-105 ${
-            currentUser.licenseStatus === 'active'
-              ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
-              : 'bg-red-50 text-red-800 border border-red-300'
-          }`}
+          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold cursor-pointer transition-all hover:scale-105 ${currentUser.licenseStatus === 'active'
+            ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
+            : 'bg-red-50 text-red-800 border border-red-300'
+            }`}
           title="Click to view or redeem license"
         >
           <ShieldCheck size={12} className={currentUser.licenseStatus === 'active' ? 'text-emerald-600' : 'text-red-600'} />
           License: {currentUser.licenseType} ({currentUser.licenseStatus === 'active' ? 'Active' : 'Expired'})
         </button>
 
-        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold ${
-          apiConnected === true
-            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-            : apiConnected === false
+        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold ${apiConnected === true
+          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+          : apiConnected === false
             ? 'bg-red-50 text-red-700 border border-red-200'
             : 'bg-amber-50 text-amber-700 border border-amber-200'
-        }`}>
+          }`}>
           {apiConnected === true ? <Wifi size={11} className="text-emerald-600" /> : apiConnected === false ? <WifiOff size={11} /> : <Activity size={11} />}
           LARS-AI API: {apiConnected === true ? 'Connected' : apiConnected === false ? 'Disconnected' : 'Checking...'}
         </span>
@@ -95,11 +93,10 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
         <button
           onClick={handleSimulate}
           disabled={isSimulating}
-          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-sm ${
-            isSimulating
-              ? 'bg-amber-100 text-amber-800 cursor-wait border border-amber-300'
-              : 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white hover:from-emerald-500 hover:to-teal-400 hover:shadow-md hover:shadow-emerald-500/20'
-          }`}
+          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-sm ${isSimulating
+            ? 'bg-amber-100 text-amber-800 cursor-wait border border-amber-300'
+            : 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white hover:from-emerald-500 hover:to-teal-400 hover:shadow-md hover:shadow-emerald-500/20'
+            }`}
         >
           <Zap size={14} className={isSimulating ? 'animate-spin' : ''} />
           {isSimulating ? 'Processing...' : 'Simulate AI Scenario'}
@@ -131,9 +128,8 @@ export default function HeaderBar({ currentUser, onUserUpdated, onSimulateScenar
                   notifications.slice(0, 5).map((n) => (
                     <div key={n.id} className="p-3 border-b border-slate-100 hover:bg-slate-50 transition-colors">
                       <div className="flex items-start gap-2">
-                        <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${
-                          n.type === 'error' ? 'bg-red-500' : n.type === 'warning' ? 'bg-amber-500' : n.type === 'success' ? 'bg-emerald-500' : 'bg-blue-500'
-                        }`} />
+                        <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${n.type === 'error' ? 'bg-red-500' : n.type === 'warning' ? 'bg-amber-500' : n.type === 'success' ? 'bg-emerald-500' : 'bg-blue-500'
+                          }`} />
                         <div>
                           <p className="text-xs font-semibold text-slate-800">{n.title}</p>
                           <p className="text-[11px] text-slate-600 mt-0.5">{n.message}</p>
