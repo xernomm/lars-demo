@@ -4,7 +4,7 @@ import {
   ShieldCheck, Anchor, Users, FolderKanban, Activity, Calendar, Building2,
   Plus, CheckCircle2, Clock, Wrench, ChevronDown,
   Layers, X, Ship, CircleDot, Eye, MoreVertical, ChevronRight,
-  AlertTriangle, FileText, ArrowUpRight
+  AlertTriangle, FileText, ArrowUpRight, Radio, Globe, Navigation, ExternalLink
 } from 'lucide-react'
 import { generateExecutiveSummary } from '../../services/geminiService'
 import MarkdownRenderer from '../MarkdownRenderer'
@@ -345,6 +345,76 @@ export default function CEODashboard() {
           </button>
         </div>
       </div>
+
+      {/* ─── MARINETRAFFIC LIVE AIS FLEET RADAR ─── */}
+      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white rounded-xl p-4 border border-slate-800 shadow-md">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700/80">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-600/30 border border-blue-400/40 flex items-center justify-center text-blue-400">
+              <Radio size={22} className="animate-pulse" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-bold text-white tracking-wide">MarineTraffic Live AIS Fleet Radar</h3>
+                <span className="bg-emerald-500/20 text-emerald-300 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded border border-emerald-400/30">
+                  Live Satellite AIS
+                </span>
+              </div>
+              <p className="text-xs text-slate-300 mt-0.5 flex items-center gap-1.5">
+                <Globe size={12} className="text-blue-400" />
+                Integrated MarineTraffic.com Telemetry — 5 Active Yard Vessels Tracked
+              </p>
+            </div>
+          </div>
+
+          <a
+            href="https://www.marinetraffic.com/"
+            target="_blank"
+            rel="noreferrer"
+            className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-sm"
+          >
+            Open MarineTraffic.com <ExternalLink size={12} />
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+          <div className="bg-slate-800/80 p-3 rounded-lg border border-slate-700/60">
+            <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
+              <span>Sea Trial Vessel</span>
+              <span className="text-purple-300 font-bold bg-purple-900/40 px-1.5 py-0.5 rounded border border-purple-500/30">Sea Trial Zone</span>
+            </div>
+            <p className="font-bold text-sm text-white mt-1">MV Ocean Pioneer</p>
+            <p className="text-[11px] text-slate-300 mt-1">Speed: <strong className="text-emerald-400">14.2 kn</strong> | MMSI: 525019882</p>
+            <p className="text-[10px] text-slate-400 mt-1">ETA Quay: Today 22:00 UTC</p>
+          </div>
+
+          <div className="bg-slate-800/80 p-3 rounded-lg border border-slate-700/60">
+            <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
+              <span>Inbound Drydock</span>
+              <span className="text-amber-300 font-bold bg-amber-900/40 px-1.5 py-0.5 rounded border border-amber-500/30">Approaching</span>
+            </div>
+            <p className="font-bold text-sm text-white mt-1">MT Pacific Trader</p>
+            <p className="text-[11px] text-slate-300 mt-1">Status: <strong>At Anchorage B</strong> | MMSI: 525088194</p>
+            <p className="text-[10px] text-slate-400 mt-1">ETA Dock 2: 08 Aug 08:30 UTC</p>
+          </div>
+
+          <div className="bg-slate-800/80 p-3 rounded-lg border border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
+                <span>MarineTraffic OpenAPI</span>
+                <span className="text-blue-300 font-bold">v0.0.1</span>
+              </div>
+              <p className="text-xs text-slate-200 mt-1 font-medium">
+                Live AIS positions, vessel specs, and expected port arrival telemetry.
+              </p>
+            </div>
+            <p className="text-[11px] text-blue-400 font-bold flex items-center gap-1 mt-2">
+              <Navigation size={12} /> MarineTraffic Radar Active
+            </p>
+          </div>
+        </div>
+      </div>
+
 
       {/* ─── ROW 3: Active Projects Table ─── */}
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">

@@ -15,6 +15,7 @@ import LaunchingManagement from './modules/LaunchingManagement'
 import SeaTrialManagement from './modules/SeaTrialManagement'
 import CEODashboard from './modules/CEODashboard'
 import AIMaritimeExpert from './modules/AIMaritimeExpert'
+import MarineTrafficView from './modules/MarineTrafficView'
 
 interface MainContentProps {
   activeModule: string
@@ -52,6 +53,8 @@ export default function MainContent({ activeModule, productionSteps }: MainConte
         return <LaunchingManagement />
       case 'sea-trial':
         return <SeaTrialManagement />
+      case 'marine-traffic':
+        return <MarineTrafficView />
       case 'ceo-dashboard':
         return <CEODashboard />
       case 'ai-maritime':

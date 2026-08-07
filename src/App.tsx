@@ -143,7 +143,7 @@ export default function App() {
     setToastNotifications((prev) => prev.filter((n) => n.id !== id))
   }, [])
 
-  const isFullWidthModule = activeModule === 'ai-maritime'
+  const isFullWidthModule = activeModule === 'ai-maritime' || activeModule === 'marine-traffic'
 
   if (isAdminView) {
     return <AdminApp />

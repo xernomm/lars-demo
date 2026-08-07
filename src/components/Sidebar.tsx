@@ -4,7 +4,7 @@ import {
   Shield, Camera, Microscope, FileText,
   Rocket, Navigation, BarChart3, Bot,
   Package, QrCode, Settings, LogOut,
-  Anchor, ClipboardCheck, Ship
+  Anchor, ClipboardCheck, Ship, Radio
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -70,6 +70,7 @@ const categories: ModuleCategory[] = [
     items: [
       { id: 'launching', label: 'Launching Management', icon: Rocket },
       { id: 'sea-trial', label: 'Sea Trial Management', icon: Navigation },
+      { id: 'marine-traffic', label: 'MarineTraffic AIS', icon: Radio },
       { id: 'ceo-dashboard', label: 'CEO Dashboard', icon: BarChart3 },
       { id: 'ai-maritime', label: 'AI Maritime Expert', icon: Bot },
     ],
